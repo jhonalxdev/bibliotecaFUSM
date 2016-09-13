@@ -99,10 +99,10 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
         lblcarrera = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblcodestu = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         txttelefono = new javax.swing.JTextField();
         txtidentificador = new javax.swing.JTextField();
-        combocarreras = new javax.swing.JComboBox<>();
+        combocarreras = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtcorreo = new javax.swing.JTextField();
@@ -139,15 +139,12 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
         jScrollPane1.setViewportView(jTable1);
 
         setOpaque(false);
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/computer-1331579_960_720.png"))); // NOI18N
         jLabel1.setText("     ");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, 100));
 
         lblupdateicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/updateicon.png"))); // NOI18N
         lblupdateicon.setText("          ");
-        add(lblupdateicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agregar Nuevo Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -176,7 +173,7 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
         lblcodestu.setText("Cod.  Estudiante *");
         jPanel1.add(lblcodestu, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 110, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Docente", "Admin" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estudiante", "Docente", "Admin" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -190,7 +187,7 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
         txtidentificador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(txtidentificador, new org.netbeans.lib.awtextra.AbsoluteConstraints(528, 50, 110, -1));
 
-        combocarreras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administracion", "Contaduria", "Ing. en Sistemas" }));
+        combocarreras.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administracion", "Contaduria", "Ing. en Sistemas" }));
         jPanel1.add(combocarreras, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 51, 122, 21));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/AgregarUsuario.png"))); // NOI18N
@@ -226,8 +223,6 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
 
         jLabel13.setText("Limpiar Form");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 130, -1, -1));
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1010, 160));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                 Usuarios Registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
 
@@ -332,15 +327,54 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 1010, 260));
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/fondo-azul-transparente.png"))); // NOI18N
         jLabel2.setText("                       ");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 1050, 240));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/fondo-azul-transparente.png"))); // NOI18N
         jLabel6.setText("                       ");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 260));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblupdateicon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblupdateicon)))
+                        .addGap(35, 35, 35)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     

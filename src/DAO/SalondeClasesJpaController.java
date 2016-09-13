@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import Conexion.exceptions.NonexistentEntityException;
-import Conexion.exceptions.PreexistingEntityException;
+import DAO.exceptions.NonexistentEntityException;
+import DAO.exceptions.PreexistingEntityException;
 import bibliotecafusm.SalondeClases;
 import java.io.Serializable;
 import java.util.List;

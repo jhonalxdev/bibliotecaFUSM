@@ -6,7 +6,6 @@
 package DAO;
 
 import DAO.exceptions.NonexistentEntityException;
-import DAO.exceptions.PreexistingEntityException;
 import bibliotecafusm.PrestamoLibro;
 import java.io.Serializable;
 import java.util.List;
@@ -32,18 +31,13 @@ public class PrestamoLibroJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(PrestamoLibro prestamoLibro) throws PreexistingEntityException, Exception {
+    public void create(PrestamoLibro prestamoLibro) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(prestamoLibro);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPrestamoLibro(prestamoLibro.getCodigoLibro()) != null) {
-                throw new PreexistingEntityException("PrestamoLibro " + prestamoLibro + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -61,7 +55,7 @@ public class PrestamoLibroJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = prestamoLibro.getCodigoLibro();
+                Long id = prestamoLibro.getPk();
                 if (findPrestamoLibro(id) == null) {
                     throw new NonexistentEntityException("The prestamoLibro with id " + id + " no longer exists.");
                 }
@@ -74,7 +68,7 @@ public class PrestamoLibroJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -82,7 +76,7 @@ public class PrestamoLibroJpaController implements Serializable {
             PrestamoLibro prestamoLibro;
             try {
                 prestamoLibro = em.getReference(PrestamoLibro.class, id);
-                prestamoLibro.getCodigoLibro();
+                prestamoLibro.getPk();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The prestamoLibro with id " + id + " no longer exists.", enfe);
             }
@@ -119,7 +113,7 @@ public class PrestamoLibroJpaController implements Serializable {
         }
     }
 
-    public PrestamoLibro findPrestamoLibro(String id) {
+    public PrestamoLibro findPrestamoLibro(Long id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(PrestamoLibro.class, id);

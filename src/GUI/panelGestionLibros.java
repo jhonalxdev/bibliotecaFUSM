@@ -10,6 +10,7 @@ import DAO.PrestamoLibroJpaController;
 
 import DAO.exceptions.NonexistentEntityException;
 import bibliotecafusm.Libro;
+import bibliotecafusm.PrestamoLibro;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -153,7 +154,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
         lblcodestu = new javax.swing.JLabel();
         txteditoriallib = new javax.swing.JTextField();
         txtcodigolib = new javax.swing.JTextField();
-        combocarreras = new javax.swing.JComboBox<>();
+        combocarreras = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -161,11 +162,11 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        comboannios = new javax.swing.JComboBox<>();
-        comboprocedencia = new javax.swing.JComboBox<>();
+        comboannios = new javax.swing.JComboBox<String>();
+        comboprocedencia = new javax.swing.JComboBox<String>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
-        combotomos = new javax.swing.JComboBox<>();
+        combotomos = new javax.swing.JComboBox<String>();
         jLabel19 = new javax.swing.JLabel();
         txtfechapub = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -179,8 +180,8 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -220,7 +221,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jLabel4.setText("Autor(es) *");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 80, -1));
 
-        lblcarrera.setText("Carrera ");
+        lblcarrera.setText("Categoria ");
         jPanel1.add(lblcarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 100, -1));
 
         jLabel7.setText("Editorial *");
@@ -235,7 +236,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
         txtcodigolib.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(txtcodigolib, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 100, -1));
 
-        combocarreras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administracion", "Contaduria", "Ing. en Sistemas" }));
+        combocarreras.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "General", "Administracion", "Contaduria", "Ing. en Sistemas" }));
         jPanel1.add(combocarreras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 120, 20));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/book_reg.png"))); // NOI18N
@@ -276,17 +277,17 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/portal no disponible.jpg"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 200, 270));
 
-        comboannios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboannios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(comboannios, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 80, -1));
 
-        comboprocedencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FUSM", "COMPRADO", "DONACION", "TESIS GRADO" }));
+        comboprocedencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FUSM", "COMPRADO", "DONACION", "TESIS GRADO" }));
         jPanel1.add(comboprocedencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 110, 20));
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 20, -1));
 
         jLabel5.setText("Fecha Ingreso *");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 90, -1));
 
-        combotomos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25" }));
+        combotomos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25" }));
         jPanel1.add(combotomos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 50, -1));
 
         jLabel19.setText("Tomo        Año publicacion");
@@ -340,9 +341,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         jLabel15.setText("Buscar por:");
         jPanel2.add(jLabel15);
-        jLabel15.setBounds(250, 20, 80, 14);
+        jLabel15.setBounds(260, 20, 80, 14);
         jPanel2.add(jTextField1);
-        jTextField1.setBounds(327, 40, 200, 20);
+        jTextField1.setBounds(337, 40, 190, 20);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icono_buscar1.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -358,22 +359,22 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jPanel2.add(jLabel17);
         jLabel17.setBounds(80, 20, 70, 40);
 
-        jLabel18.setText("Ordenado");
+        jLabel18.setText("Listado por:");
         jPanel2.add(jLabel18);
-        jLabel18.setBounds(160, 20, 80, 14);
+        jLabel18.setBounds(150, 20, 80, 14);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carrera", "Procedencia" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Categoria", "Procedencia" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
         jPanel2.add(jComboBox1);
-        jComboBox1.setBounds(160, 40, 80, 20);
+        jComboBox1.setBounds(150, 40, 100, 20);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Autor" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Codigo", "Nombre", "Autor" }));
         jPanel2.add(jComboBox2);
-        jComboBox2.setBounds(250, 40, 70, 20);
+        jComboBox2.setBounds(260, 40, 70, 20);
 
         jLabel9.setText("Editar                    Eliminar");
         jPanel2.add(jLabel9);
@@ -561,7 +562,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
                     ordenadoxcarrera();
 //                    updateTable();
-                    jComboBox1.setSelectedItem("Carrera");
+                    jComboBox1.setSelectedItem("Categoria");
                     
                     
                     JOptionPane.showMessageDialog(null, "Nuevo libro registrado con Exito");
@@ -737,8 +738,8 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
                      // si el libro ha sido prestado eliminelo de la lista prestamolibros
                 if(!prestamolibrosjpa.findPrestamoLibroEntities().isEmpty()){
-                    if (!prestamolibrosjpa.findPrestamoLibro(idlibro).equals(null)) {
-                        prestamolibrosjpa.destroy(idlibro); 
+                    if (!prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (idlibro)).equals(null)) {
+                        prestamolibrosjpa.destroy(getIdprestamoxCodLibro (idlibro)); 
 
                     }
                 }
@@ -980,6 +981,11 @@ public class panelGestionLibros extends javax.swing.JPanel {
                     librosTabla.add(listaLibrosdelaBD.get(i));
                 }
             }
+            for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
+                if (listaLibrosdelaBD.get(i).getCarrera().equals("General")) {
+                    librosTabla.add(listaLibrosdelaBD.get(i));
+                }
+            }
 
             updateTableNuevo(librosTabla);
     }
@@ -997,7 +1003,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
             librosTabla = librosjpa.findLibroEntities();
         }
 
-        if (jComboBox1.getSelectedItem().equals("Carrera")) {
+        if (jComboBox1.getSelectedItem().equals("Categoria")) {
 
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getCarrera().equals("Administracion")) {
@@ -1011,6 +1017,11 @@ public class panelGestionLibros extends javax.swing.JPanel {
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getCarrera().equals("Ing. en Sistemas")) {
+                    librosTabla.add(listaLibrosdelaBD.get(i));
+                }
+            }
+            for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
+                if (listaLibrosdelaBD.get(i).getCarrera().equals("General")) {
                     librosTabla.add(listaLibrosdelaBD.get(i));
                 }
             }
@@ -1142,6 +1153,23 @@ public class panelGestionLibros extends javax.swing.JPanel {
   
     }
 
+        public Long getIdprestamoxCodLibro (String codlibro){
+        
+        Long id = -11L;
+        
+        List<PrestamoLibro> listaPrestamos = prestamolibrosjpa.findPrestamoLibroEntities();
+        
+        for (int i = 0; i < listaPrestamos.size(); i++) {
+            if(listaPrestamos.get(i).getCodigoLibro().equals(codlibro)){
+                id = listaPrestamos.get(i).getPk();
+            }
+        }
+        
+    
+        return id;
+    }
+    
+    
     // CREANDO MODELO COMBOBOX
     public void cargarComboAnos() {
         DefaultComboBoxModel mdlCombo = new DefaultComboBoxModel();
@@ -1224,7 +1252,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
                     return "CODIGO";
 
                 case 3:
-                    return "CARRERA";
+                    return "CATEGORIA";
 
                 case 4:
                     return "PROCEDENCIA";

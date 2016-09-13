@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -21,6 +23,11 @@ import javax.persistence.Id;
 public class PrestamoBeam implements Serializable {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long pk;
+    
+    
+    @Column (length = 80,nullable = false,unique = false)
     private String serialBeam;
     @Column (length = 80,nullable = false,unique = false)
     private String marca;
@@ -149,6 +156,14 @@ public class PrestamoBeam implements Serializable {
 
     public void setEstadoPrestamo(String estadoPrestamo) {
         this.estadoPrestamo = estadoPrestamo;
+    }
+
+    public Long getPk() {
+        return pk;
+    }
+
+    public void setPk(Long pk) {
+        this.pk = pk;
     }
 
     

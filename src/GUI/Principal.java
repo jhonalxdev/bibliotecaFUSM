@@ -115,7 +115,6 @@ public class Principal extends javax.swing.JFrame  {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,7 +134,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btnadminusuarios);
-        btnadminusuarios.setBounds(20, 280, 160, 23);
+        btnadminusuarios.setBounds(20, 260, 160, 23);
 
         btngestionvideobeam.setText("Gestion Video Beams");
         btngestionvideobeam.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +143,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btngestionvideobeam);
-        btngestionvideobeam.setBounds(20, 360, 160, 23);
+        btngestionvideobeam.setBounds(20, 340, 160, 23);
 
         titulopanelseccion.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         titulopanelseccion.setForeground(new java.awt.Color(204, 204, 204));
@@ -152,14 +151,14 @@ public class Principal extends javax.swing.JFrame  {
         getContentPane().add(titulopanelseccion);
         titulopanelseccion.setBounds(280, 70, 430, 50);
 
-        btngestionlibros.setText("Gestion Libros");
+        btngestionlibros.setText("Registro Libros");
         btngestionlibros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btngestionlibrosActionPerformed(evt);
             }
         });
         getContentPane().add(btngestionlibros);
-        btngestionlibros.setBounds(20, 320, 160, 23);
+        btngestionlibros.setBounds(20, 300, 160, 23);
 
         btnprestamos.setText("Prestamos");
         btnprestamos.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +167,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btnprestamos);
-        btnprestamos.setBounds(20, 180, 160, 23);
+        btnprestamos.setBounds(20, 200, 160, 23);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 255));
@@ -257,10 +256,6 @@ public class Principal extends javax.swing.JFrame  {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(1190, 10, 20, 20);
 
-        jButton1.setText("Registros");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(20, 220, 160, 23);
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/backfusmprincipal.png"))); // NOI18N
         jLabel1.setText("                ");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -334,7 +329,11 @@ public class Principal extends javax.swing.JFrame  {
         Date fechaDate =null;
         
         for (PrestamoLibro p : prestamolibrosjpa.findPrestamoLibroEntities()) {
+            
+            if(!p.getEntregaPrestamo().equals("---")){  
+            
             try {
+
                fechaDate = fecha.parse(p.getEntregaPrestamo());
             
             
@@ -352,6 +351,8 @@ public class Principal extends javax.swing.JFrame  {
  
             } catch (ParseException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             }
         }
       
@@ -533,7 +534,6 @@ public class Principal extends javax.swing.JFrame  {
     private javax.swing.JButton btnlibros;
     private javax.swing.JButton btnprestamos;
     private javax.swing.JButton btnvideo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

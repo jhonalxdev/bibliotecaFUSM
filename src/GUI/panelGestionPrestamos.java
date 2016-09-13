@@ -108,8 +108,8 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         // Define la selecion de solo una celda
         miTablaPrestamosBeams.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       
-        
-     
+   
+
         // manejador buqueda enter
         jTextField1.addActionListener(new ActionListener() {
             @Override
@@ -126,12 +126,21 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         
         updateTableLibros();
         
-        cargarCombosalones();
+        cargarCombosalones(); 
   
     }
 
     public void updateListaPrestamoLibrosBD(){
-        listaPrestamoLibrosdelaBD = prestamolibrosjpa.findPrestamoLibroEntities();
+
+        listaPrestamoLibrosdelaBD.clear();
+        
+        for (PrestamoLibro p : prestamolibrosjpa.findPrestamoLibroEntities()) {
+            
+                if(!p.getEstadoPrestamo().equals("Entregado")){
+                listaPrestamoLibrosdelaBD.add(p);
+                }         
+        }
+ 
     }
     
     public void updateListaPrestamoBeamsBD(){
@@ -140,22 +149,33 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
     
     
     public void cargarCombosalones() {
+        
+        
         DefaultComboBoxModel mdlCombo = new DefaultComboBoxModel();
-        combosalones.setModel(mdlCombo);
-        
-        mdlCombo.removeAllElements();
-        
-        mdlCombo.addElement("----------");
-        
-        if(!listaSalonesdelaBD.isEmpty()){
-            
+
+ 
+        if(salonesjpa.findSalondeClasesEntities().size()>0){
+    
             listaSalonesdelaBD = salonesjpa.findSalondeClasesEntities();
             
-        for (int i = 0; i < listaSalonesdelaBD.size(); i++) {
-            SalondeClases s = listaSalonesdelaBD.get(i);
-            mdlCombo.addElement(""+s.getNumeroSalon());
+
+            for (int i = 0; i < listaSalonesdelaBD.size(); i++) {
+                
+                if(i==0){
+                    mdlCombo.addElement("----------");
+                }
+                    SalondeClases s = listaSalonesdelaBD.get(i);
+                    mdlCombo.addElement("" + s.getNumeroSalon());
+                
+  
+            }
+        }else{
+            mdlCombo.addElement("----------");
         }
-        }
+        
+        combosalones.setModel(mdlCombo);
+
+        
     }
 
     
@@ -207,7 +227,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -216,6 +236,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         miTablaPrestamosBeams = new javax.swing.JTable();
@@ -225,9 +246,9 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
-        combosalones = new javax.swing.JComboBox<>();
+        combosalones = new javax.swing.JComboBox<String>();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -248,19 +269,19 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/projector.png"))); // NOI18N
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, -10, 80, 90));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 80, 90));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/books-icon.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 100));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 80, 100));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                 Gestion Prestamos Libros ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                      Gestion Prestamos Libros ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel2.setLayout(null);
 
         jLabel15.setText("Buscar por:");
         jPanel2.add(jLabel15);
-        jLabel15.setBounds(100, 20, 80, 14);
+        jLabel15.setBounds(120, 20, 80, 14);
         jPanel2.add(jTextField1);
-        jTextField1.setBounds(230, 40, 220, 20);
+        jTextField1.setBounds(250, 40, 220, 20);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icono_buscar1.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -269,11 +290,11 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton5);
-        jButton5.setBounds(460, 20, 48, 50);
+        jButton5.setBounds(480, 20, 60, 50);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo libro", "Titulo libro", "ID usuario", "Nombre usuario" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Codigo libro", "Titulo libro", "ID usuario", "Nombre usuario" }));
         jPanel2.add(jComboBox2);
-        jComboBox2.setBounds(100, 40, 130, 20);
+        jComboBox2.setBounds(120, 40, 130, 20);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/active_book.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +334,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(600, 10, 100, 50);
+        jButton2.setBounds(590, 10, 110, 50);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/give_book.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -322,7 +343,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(870, 10, 100, 50);
+        jButton3.setBounds(870, 10, 110, 50);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Confirmar Devolucion");
@@ -332,11 +353,20 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Cancelar Prestamo");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(590, 60, 120, 14);
+        jLabel5.setBounds(580, 60, 130, 14);
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 1020, 250));
+        jButton9.setText("Generar Reportes");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9);
+        jButton9.setBounds(290, 0, 140, 20);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                 Gestion Prestamos VideoBeams", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 1020, 250));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                  Gestion Prestamos VideoBeams", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel3.setLayout(null);
 
         miTablaPrestamosBeams.setModel(new javax.swing.table.DefaultTableModel(
@@ -385,8 +415,13 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         jLabel8.setBounds(850, 60, 140, 14);
 
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jTextField2);
-        jTextField2.setBounds(140, 30, 110, 20);
+        jTextField2.setBounds(120, 40, 110, 20);
 
         jButton7.setText("Registrar Salon");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -395,11 +430,16 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             }
         });
         jPanel3.add(jButton7);
-        jButton7.setBounds(260, 30, 140, 23);
+        jButton7.setBounds(240, 40, 130, 23);
 
-        combosalones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combosalones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----------" }));
+        combosalones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combosalonesActionPerformed(evt);
+            }
+        });
         jPanel3.add(combosalones);
-        combosalones.setBounds(430, 30, 80, 20);
+        combosalones.setBounds(390, 40, 130, 20);
 
         jButton8.setText("Remover Salon");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -408,18 +448,18 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             }
         });
         jPanel3.add(jButton8);
-        jButton8.setBounds(520, 30, 130, 23);
+        jButton8.setBounds(530, 40, 140, 23);
 
-        jButton9.setText("P");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButton10.setText("Generar Reportes ");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButton10ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton9);
-        jButton9.setBounds(670, 30, 40, 23);
+        jPanel3.add(jButton10);
+        jButton10.setBounds(290, 0, 140, 20);
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1020, 200));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1020, 200));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/fondo-azul-transparente.png"))); // NOI18N
         jLabel6.setText("                       ");
@@ -448,7 +488,11 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
    }else{  
 
        String codLibro = String.valueOf(miTablaPrestamolibros.getModel().getValueAt(miTablaPrestamolibros.getSelectedRow(), 3));      
-       PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(codLibro);  //*
+       
+       
+       
+       PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (codLibro));  //*    
+       p.activarPrestamoLibro();
        
         if(p.getEstadoPrestamo().equals("Activo")){
         
@@ -509,7 +553,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
 
             if (jComboBox2.getSelectedItem().equals("Codigo libro")) {
 
-                PrestamoLibro libro = prestamolibrosjpa.findPrestamoLibro(jTextField1.getText().trim());
+                PrestamoLibro libro = prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (jTextField1.getText().trim()));
 
                 if (libro != null) {
 
@@ -579,7 +623,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
    //-------------------------
        if (jComboBox2.getSelectedItem().equals("ID usuario")) {
 
-                PrestamoLibro libro = prestamolibrosjpa.findPrestamoLibro(jTextField1.getText().trim());
+                PrestamoLibro libro = prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (jTextField1.getText().trim()));
 
                 if (libro != null) {
 
@@ -656,6 +700,38 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     
+    
+    public Long getIdprestamoxCodLibro (String codlibro){
+        
+        Long id = -11L;
+        
+        List<PrestamoLibro> listaPrestamos = prestamolibrosjpa.findPrestamoLibroEntities();
+        
+        for (int i = 0; i < listaPrestamos.size(); i++) {
+            if(listaPrestamos.get(i).getCodigoLibro().equals(codlibro)){
+                id = listaPrestamos.get(i).getPk();
+            }
+        }
+
+        return id;
+    }
+    
+    public Long getIdprestamoxCodSerialBean (String serial){
+        
+        Long id = -11L;
+        
+        List<PrestamoBeam> listaPrestamos = prestamoBeamsjpa.findPrestamoBeamEntities();
+        
+        for (int i = 0; i < listaPrestamos.size(); i++) {
+            if(listaPrestamos.get(i).getSerialBeam().equals(serial)){
+                id = listaPrestamos.get(i).getPk();
+            }
+        }
+
+        return id;
+    }
+    
+    
     // cancelar prestamo
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
@@ -668,7 +744,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         } else {
 
             String codLibro = String.valueOf(miTablaPrestamolibros.getModel().getValueAt(miTablaPrestamolibros.getSelectedRow(), 3));
-            PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(codLibro);  //*
+            PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (codLibro) );  //*
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int opc = JOptionPane.showConfirmDialog(null,
@@ -681,7 +757,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     lencontrado.setEstado("Disponible");
                     librosjpa.edit(lencontrado);
 
-                    prestamolibrosjpa.destroy(codLibro);
+                    prestamolibrosjpa.destroy(getIdprestamoxCodLibro (codLibro));
 
                     updateTableLibros();
                     JOptionPane.showMessageDialog(null, "Prestamo cancelado");
@@ -704,9 +780,23 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debes seleecionar un prestamo");
 
         } else {
+            
+            
+            
+            
 
             String codLibro = String.valueOf(miTablaPrestamolibros.getModel().getValueAt(miTablaPrestamolibros.getSelectedRow(), 3));
-            PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(codLibro);  //*
+            PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (codLibro));  //*
+
+            
+            if(p.getEstadoPrestamo().equals("Solicitud")){
+                JOptionPane.showMessageDialog(null, "El prestamo indicado aun No ha sido Activado","AVISO",JOptionPane.ERROR_MESSAGE);
+            
+            }else if(p.getEstadoPrestamo().equals("entregado")){
+                JOptionPane.showMessageDialog(null, "Ya ha sido confirmada la devolucion del prestamo indicado");
+            }
+            else{
+            
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int opc = JOptionPane.showConfirmDialog(null,
@@ -719,7 +809,9 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     lencontrado.setEstado("Disponible");
                     librosjpa.edit(lencontrado);
 
-                    prestamolibrosjpa.destroy(codLibro);
+                    p.setEstadoPrestamo("Entregado");
+                    prestamolibrosjpa.edit(p);
+//                    prestamolibrosjpa.destroy(getIdprestamoxCodLibro (codLibro));
 
                     updateTableLibros();
                     JOptionPane.showMessageDialog(null, "Devolucion del prestamo confirmada");
@@ -729,6 +821,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                 } catch (Exception ex) {
                     Logger.getLogger(panelGestionPrestamos.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
             }
         }
 
@@ -747,7 +840,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         } else {
 
             String snbeam = String.valueOf(miTablaPrestamosBeams.getModel().getValueAt(miTablaPrestamosBeams.getSelectedRow(), 5));
-            PrestamoBeam p = prestamoBeamsjpa.findPrestamoBeam(snbeam);  //*
+            PrestamoBeam p = prestamoBeamsjpa.findPrestamoBeam(getIdprestamoxCodSerialBean (snbeam));  //*
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int opc = JOptionPane.showConfirmDialog(null,
@@ -760,7 +853,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     vbencontrado.setDisponibilidad("Disponible");
                     proyectoresjpa.edit(vbencontrado);
 
-                    prestamoBeamsjpa.destroy(snbeam);
+                    prestamoBeamsjpa.destroy(getIdprestamoxCodSerialBean (snbeam));
 
                     updateTableBeams(); 
                     JOptionPane.showMessageDialog(null, "Prestamo cancelado");
@@ -787,7 +880,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         } else {
 
             String snbeam = String.valueOf(miTablaPrestamosBeams.getModel().getValueAt(miTablaPrestamosBeams.getSelectedRow(), 5));
-            PrestamoBeam p = prestamoBeamsjpa.findPrestamoBeam(snbeam);  //*
+            PrestamoBeam p = prestamoBeamsjpa.findPrestamoBeam(getIdprestamoxCodSerialBean (snbeam));  //*
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int opc = JOptionPane.showConfirmDialog(null,
@@ -800,7 +893,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     vbencontrado.setDisponibilidad("Disponible");
                     proyectoresjpa.edit(vbencontrado);
 
-                    prestamoBeamsjpa.destroy(snbeam);
+                    prestamoBeamsjpa.destroy(getIdprestamoxCodSerialBean (snbeam));
 
                     updateTableBeams(); 
                     JOptionPane.showMessageDialog(null, "Devolucion del prestamo confirmada");
@@ -815,9 +908,12 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       
+
+        
+        
         try {
             String id = jTextField2.getText().toString();
+            
             SalondeClases s = new SalondeClases(id);
   
             
@@ -825,29 +921,38 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Debe indicar nombre salon a registrar","Error, espacio en blanco",JOptionPane.ERROR_MESSAGE);
 
             }else if(salonesjpa.findSalondeClasesEntities().contains(s)){
+                
             JOptionPane.showMessageDialog(null,"Salon "+id+" ya se encuentra registrado");
             
             }else{
-             salonesjpa.create(s);
+                
+                
+             salonesjpa.create(s); 
             JOptionPane.showMessageDialog(null,"Salon "+id+" registrado con exito");
              
         
-            cargarCombosalones();
-            jTextField2.setText("");  
-            cargarCombosalones();
             
-            this.updateUI();
+            jTextField2.setText("");  
+            
+            
+            
+            cargarCombosalones();
             
             }
         } catch (Exception ex) {
             Logger.getLogger(panelGestionPrestamos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.updateUI();
         cargarCombosalones();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
+        
         String id = combosalones.getSelectedItem().toString();
+        
+     
         
         if(id.equals("----------")){
             JOptionPane.showMessageDialog(null,"Debes selecionar un salon a remover");
@@ -855,17 +960,61 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             try {
                 salonesjpa.destroy(id);
                 
-            } catch (Conexion.exceptions.NonexistentEntityException ex) {
+ 
+            } catch (NonexistentEntityException ex) {
                 Logger.getLogger(panelGestionPrestamos.class.getName()).log(Level.SEVERE, null, ex);
             }
-            cargarCombosalones();
+    
         }
-        cargarCombosalones();
+           cargarCombosalones();
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
      
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void combosalonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combosalonesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combosalonesActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+       
+        try {
+            String id = jTextField2.getText().toString();
+            
+            SalondeClases s = new SalondeClases(id);
+  
+            
+            if(id.equals("".trim())){
+            JOptionPane.showMessageDialog(null,"Debe indicar nombre salon a registrar","Error, espacio en blanco",JOptionPane.ERROR_MESSAGE);
+
+            }else if(salonesjpa.findSalondeClasesEntities().contains(s)){
+                
+            JOptionPane.showMessageDialog(null,"Salon "+id+" ya se encuentra registrado");
+            
+            }else{
+                
+                
+            salonesjpa.create(s); 
+            JOptionPane.showMessageDialog(null,"Salon "+id+" registrado con exito");
+    
+            jTextField2.setText("");  
+   
+            cargarCombosalones();
+            
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(panelGestionPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.updateUI();
+        cargarCombosalones();
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
  
@@ -874,6 +1023,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combosalones;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -930,6 +1080,14 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         ((AbstractTableModel) miTablaPrestamolibros.getModel()).fireTableDataChanged();
 
     }
+    
+    
+ 
+    
+    
+    
+    
+    
     
     
 
@@ -1131,7 +1289,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     return "PRESTAMO";
 
                 case 6:
-                    return "ENTREGA";
+                    return "DEVOLUCION";
                     
                 case 7:
                     return "ESTADO";

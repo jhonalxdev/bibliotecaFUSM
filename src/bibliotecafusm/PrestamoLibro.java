@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -21,14 +23,21 @@ import javax.persistence.Id;
 public class PrestamoLibro implements Serializable  {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long pk;
+    
+    @Column (length = 80,nullable = false,unique = false)
     private String codigoLibro;
+    
     @Column (length = 80,nullable = false,unique = false)
     private String nombreLibro;
     
     @Column (length = 80,nullable = false,unique = false)
     private String nombreUsuario;
+    
     @Column (length = 80,nullable = false,unique = false)
     private String idUsuario;
+    
     @Column (length = 80,nullable = false,unique = false)
     private String tipoUsuario;
     
@@ -50,13 +59,18 @@ public class PrestamoLibro implements Serializable  {
         this.idUsuario = idUsuario;
         this.tipoUsuario = tipoUsuario;
         
-        this.fechaPrestamo = getFechaActual ();
-        this.entregaPrestamo = getcalcFechaDevolucion ();
+        this.fechaPrestamo = "---";
+        this.entregaPrestamo = "---";
         this.estadoPrestamo = "Solicitud";
     }
     
     
     public void renovarPrestamoLibro(){
+        this.fechaPrestamo = getFechaActual ();
+        this.entregaPrestamo = getcalcFechaDevolucion ();
+    }
+    
+    public void activarPrestamoLibro(){
         this.fechaPrestamo = getFechaActual ();
         this.entregaPrestamo = getcalcFechaDevolucion ();
     }
@@ -177,6 +191,14 @@ public class PrestamoLibro implements Serializable  {
 
     public void setEstadoPrestamo(String estadoPrestamo) {
         this.estadoPrestamo = estadoPrestamo;
+    }
+
+    public Long getPk() {
+        return pk;
+    }
+
+    public void setPk(Long pk) {
+        this.pk = pk;
     }
     
     

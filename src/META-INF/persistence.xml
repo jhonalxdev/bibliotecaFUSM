@@ -9,9 +9,15 @@
     <class>bibliotecafusm.Usuario</class>
     <class>bibliotecafusm.VideoBeam</class>
     <properties>
+        
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.40.5:3306/bibliotecafusmbd?zeroDateTimeBehavior=convertToNull"/>
+<!--      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/bibliotecafusmbd"/>-->
+      
       <property name="javax.persistence.jdbc.user" value="fusm"/>
+      
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+<!--      <property name="apache_derby_net" value="org.apache.derby.jdbc.ClientDriver"/>-->
+      
       <property name="javax.persistence.jdbc.password" value="Fusm12345"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>

@@ -164,7 +164,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         
         
         librosTabla = listaLibrosdelaBD;
-        ordenadoxcarrera();
+        ordenadoxcarrera();   
         
         organizatamseccionestabla();
         
@@ -175,8 +175,8 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 
     
     public void setInfoUser(){
-        txtnombres.setText(userlogin.getNombres());
-        txtapellidos.setText(userlogin.getApellidos());
+        txtnombre.setText(userlogin.getApellidos()+" "+userlogin.getNombres());
+        txtacarrera.setText(userlogin.getCarrera());
         txtcodigo.setText(userlogin.getIdentificacion());
         
         // falta el estado
@@ -203,8 +203,12 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         cModel1.getColumn(1).setPreferredWidth(150);
         cModel1.getColumn(2).setPreferredWidth(80);
         cModel1.getColumn(3).setPreferredWidth(100);
- 
- 
+     
+
+        miTablaPrestamos.getColumnModel().getColumn(2).setCellRenderer(tcr);
+        miTablaPrestamos.getColumnModel().getColumn(3).setCellRenderer(tcr);
+
+  
     }
 
     /**
@@ -218,7 +222,17 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        miTablaPrestamos = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        txtnombre = new javax.swing.JTextField();
+        txtacarrera = new javax.swing.JTextField();
+        txtcodigo = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -227,30 +241,20 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         libroimg2 = new javax.swing.JLabel();
         libroimg3 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         miTabla = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        miTablaPrestamos = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        txtnombres = new javax.swing.JTextField();
-        txtapellidos = new javax.swing.JTextField();
-        txtcodigo = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -268,8 +272,58 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         setOpaque(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/books-icon.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 80));
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/book_car.png"))); // NOI18N
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 60, -1));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mis prestamos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
+        jPanel3.setLayout(null);
+
+        miTablaPrestamos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        miTablaPrestamos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane3.setViewportView(miTablaPrestamos);
+
+        jPanel3.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 70, 450, 90);
+
+        jLabel7.setText("Nombre: ");
+        jPanel3.add(jLabel7);
+        jLabel7.setBounds(10, 20, 80, 14);
+
+        txtnombre.setEditable(false);
+        jPanel3.add(txtnombre);
+        txtnombre.setBounds(10, 40, 180, 20);
+
+        txtacarrera.setEditable(false);
+        jPanel3.add(txtacarrera);
+        txtacarrera.setBounds(200, 40, 160, 20);
+
+        txtcodigo.setEditable(false);
+        jPanel3.add(txtcodigo);
+        txtcodigo.setBounds(370, 40, 90, 20);
+
+        jLabel9.setText("Programa:");
+        jPanel3.add(jLabel9);
+        jLabel9.setBounds(200, 20, 90, 14);
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("ID");
+        jPanel3.add(jLabel10);
+        jLabel10.setBounds(370, 20, 90, 14);
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 470, 200));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "          Carrito Solicitud Prestamo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -325,9 +379,6 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 530, 200));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/books-icon.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 90, 80));
-
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                 Libros Registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel2.setLayout(null);
 
@@ -346,11 +397,11 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         jPanel2.add(jButton5);
         jButton5.setBounds(560, 20, 48, 50);
 
-        jLabel18.setText("Ordenado");
+        jLabel18.setText("Ordenado por:");
         jPanel2.add(jLabel18);
         jLabel18.setBounds(90, 20, 80, 14);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carrera", "Estado" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Categoria", "Estado" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -359,7 +410,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         jPanel2.add(jComboBox1);
         jComboBox1.setBounds(90, 40, 80, 20);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Titulo", "Autor" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Codigo", "Titulo", "Autor" }));
         jPanel2.add(jComboBox2);
         jComboBox2.setBounds(180, 40, 90, 20);
 
@@ -401,60 +452,13 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 1020, 250));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mis prestamos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
-        jPanel3.setLayout(null);
-
-        miTablaPrestamos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        miTablaPrestamos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane3.setViewportView(miTablaPrestamos);
-
-        jPanel3.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 70, 450, 90);
-
-        jLabel7.setText("Nombres  ");
-        jPanel3.add(jLabel7);
-        jLabel7.setBounds(10, 20, 80, 14);
-
-        txtnombres.setEditable(false);
-        jPanel3.add(txtnombres);
-        txtnombres.setBounds(10, 40, 160, 20);
-
-        txtapellidos.setEditable(false);
-        jPanel3.add(txtapellidos);
-        txtapellidos.setBounds(180, 40, 180, 20);
-
-        txtcodigo.setEditable(false);
-        jPanel3.add(txtcodigo);
-        txtcodigo.setBounds(370, 40, 90, 20);
-
-        jLabel9.setText("Apellidos");
-        jPanel3.add(jLabel9);
-        jLabel9.setBounds(180, 20, 90, 14);
-
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("ID");
-        jPanel3.add(jLabel10);
-        jLabel10.setBounds(370, 20, 90, 14);
-
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 470, 200));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/fondo-azul-transparente.png"))); // NOI18N
+        jLabel2.setText("                       ");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 1050, 280));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/fondo-azul-transparente.png"))); // NOI18N
         jLabel6.setText("                       ");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 230));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/fondo-azul-transparente.png"))); // NOI18N
-        jLabel2.setText("                       ");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 1050, 280));
     }// </editor-fold>//GEN-END:initComponents
 
     Libro libroencontrado = new Libro();
@@ -690,6 +694,11 @@ public void updateCarrito(){
                     librosTabla.add(listaLibrosdelaBD.get(i));
                 }
             }
+            for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
+                if (listaLibrosdelaBD.get(i).getCarrera().equals("General")) {
+                    librosTabla.add(listaLibrosdelaBD.get(i));
+                }
+            }
 
             updateTableNuevo(librosTabla);
     }
@@ -704,7 +713,7 @@ public void updateCarrito(){
 
 
 
-        if (jComboBox1.getSelectedItem().equals("Carrera")) {
+        if (jComboBox1.getSelectedItem().equals("Categoria")) {
 
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getCarrera().equals("Administracion")) {
@@ -718,6 +727,11 @@ public void updateCarrito(){
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getCarrera().equals("Ing. en Sistemas")) {
+                    librosTabla.add(listaLibrosdelaBD.get(i));
+                }
+            }
+            for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
+                if (listaLibrosdelaBD.get(i).getCarrera().equals("General")) {
                     librosTabla.add(listaLibrosdelaBD.get(i));
                 }
             }
@@ -811,7 +825,7 @@ public void updateCarrito(){
         
         }else if( (listaLibroscarrito.size() + listaPrestamoLibrosdelaBD.size())>3){
         
-            JOptionPane.showMessageDialog (null, "Solo puede tener un maximo de 3 libros en prestamo");
+            JOptionPane.showMessageDialog (null, "Solo puede solicitar un maximo de 3 libros en prestamo");
             listaLibroscarrito.clear();
             updateCarrito();
         
@@ -978,9 +992,9 @@ public void updateCarrito(){
     private javax.swing.JLabel libroimg3;
     private javax.swing.JTable miTabla;
     private javax.swing.JTable miTablaPrestamos;
-    private javax.swing.JTextField txtapellidos;
+    private javax.swing.JTextField txtacarrera;
     private javax.swing.JTextField txtcodigo;
-    private javax.swing.JTextField txtnombres;
+    private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 
     
@@ -988,7 +1002,7 @@ public void updateCarrito(){
     public void updateTablePrestamos() {
 
         // ACTUALIZACION DE LA TABLA
-        // volver asignarle el nuevo valor de la lista de la base de datos
+        // vuelve asignarle el nuevo valor de la lista de la base de datos
 //        listaPrestamoLibrosdelaBD = prestamolibrosjpa.findPrestamoLibroEntities();
 
         listaPrestamoLibrosdelaBD.clear();
@@ -1001,8 +1015,9 @@ public void updateCarrito(){
                     usuarioPresentaDeuda = true;
                 }
                 
-                
+                if(!p.getEstadoPrestamo().equals("Entregado")){
                 listaPrestamoLibrosdelaBD.add(p);
+                }
             }
         }
         
@@ -1119,7 +1134,7 @@ public void updateCarrito(){
                     return "TOMO";
                     
                 case 4:
-                    return "CARRERA";
+                    return "CATEGORIA";
 
                 case 5:
                     return "ESTADO";

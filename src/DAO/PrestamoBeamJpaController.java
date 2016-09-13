@@ -6,7 +6,6 @@
 package DAO;
 
 import DAO.exceptions.NonexistentEntityException;
-import DAO.exceptions.PreexistingEntityException;
 import bibliotecafusm.PrestamoBeam;
 import java.io.Serializable;
 import java.util.List;
@@ -32,18 +31,13 @@ public class PrestamoBeamJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(PrestamoBeam prestamoBeam) throws PreexistingEntityException, Exception {
+    public void create(PrestamoBeam prestamoBeam) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(prestamoBeam);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPrestamoBeam(prestamoBeam.getSerialBeam()) != null) {
-                throw new PreexistingEntityException("PrestamoBeam " + prestamoBeam + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -61,7 +55,7 @@ public class PrestamoBeamJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = prestamoBeam.getSerialBeam();
+                Long id = prestamoBeam.getPk();
                 if (findPrestamoBeam(id) == null) {
                     throw new NonexistentEntityException("The prestamoBeam with id " + id + " no longer exists.");
                 }
@@ -74,7 +68,7 @@ public class PrestamoBeamJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -82,7 +76,7 @@ public class PrestamoBeamJpaController implements Serializable {
             PrestamoBeam prestamoBeam;
             try {
                 prestamoBeam = em.getReference(PrestamoBeam.class, id);
-                prestamoBeam.getSerialBeam();
+                prestamoBeam.getPk();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The prestamoBeam with id " + id + " no longer exists.", enfe);
             }
@@ -119,7 +113,7 @@ public class PrestamoBeamJpaController implements Serializable {
         }
     }
 
-    public PrestamoBeam findPrestamoBeam(String id) {
+    public PrestamoBeam findPrestamoBeam(Long id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(PrestamoBeam.class, id);

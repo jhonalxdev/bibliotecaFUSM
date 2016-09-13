@@ -54,8 +54,7 @@ public class Main {
  * 3. Crear clase manejadora de operaciones de la base de datos DAO: Data Acces Object
  * - creamos folder --> click derecho proyecto //new // java Package // asignamos nombre:: DAO
  * - archivo nuevo / JPA controller Entity class / seleccionar clases con relaciones
- * 
- * 
+ *
  * 4. Agrega libreria JavaDB driver
  * Librerias // click derecho Add Library // JavaDB driver
  * 
@@ -63,26 +62,18 @@ public class Main {
  * para no utilizar el main creamos otra clase
  * archivo nuevo / Test for existing class / se selecciona la clase
  * 
- * 6. Crear nuevo paquete con una clase conexion 
- * contendra un metodo getconexion con el cual se realizara la conexion a la base de datos
  *
- * 7. Mmodificar la ruta de la base de datos en la unidad persistente
- *       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/basededatos"/>-->
- *      <property name="javax.persistence.jdbc.url" value="jdbc:derby:.\\basededatos"/>
- 
  **/
     
     
     /** INFO DATABASE
      * bibliotecafusmbd
-     * user: alex
-     * pass: 2711
+     * user: fusm
+     * pass: Fusm12345
      */
     
     public static void main(String[] args) {
-        
-        
-        
+
         try {
         
 
@@ -95,14 +86,11 @@ public class Main {
        
         ventana.setExtendedState(MAXIMIZED_BOTH);
 
-        
-        
-       // oculta principal hasta logeo true
-        ventana.setVisible(true);
-        
  
-
-            
+       // oculta principal hasta logeo true
+        ventana.setVisible(false);
+        
+  
         } catch (PersistenceException pex) {
             // notificacion de error en caso que la conexion con la bd no se realice
             JOptionPane.showMessageDialog(null,"Sin conexion con la base de datos");

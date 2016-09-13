@@ -166,8 +166,8 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
     
     
     public void setInfoUser(){
-        txtnombres.setText(userlogin.getNombres());
-        txtapellidos.setText(userlogin.getApellidos());
+        txtnombre.setText(userlogin.getApellidos()+" "+userlogin.getNombres());
+        txtcarrera.setText(userlogin.getCarrera());
         txtcodigo.setText(userlogin.getIdentificacion());
         
         // falta el estado
@@ -222,15 +222,17 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jLabel14 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        combosalones = new javax.swing.JComboBox<>();
+        combosalones = new javax.swing.JComboBox<String>();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtapellidos = new javax.swing.JTextField();
+        txtcarrera = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtnombres = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         miTablaPrestamos = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -249,10 +251,8 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jScrollPane1.setViewportView(jTable1);
 
         setOpaque(false);
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/projector.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 90, 100));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle Video Beam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -300,8 +300,6 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jLabel5.setText("   ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 280, 70));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 530, 150));
-
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                 Video Beams Registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel2.setLayout(null);
 
@@ -320,7 +318,7 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jScrollPane2.setViewportView(miTabla);
 
         jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 70, 960, 180);
+        jScrollPane2.setBounds(20, 70, 960, 160);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/addproyector.png"))); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -345,7 +343,7 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jPanel2.add(jLabel2);
         jLabel2.setBounds(580, 10, 210, 20);
 
-        combosalones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----------" }));
+        combosalones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----------" }));
         jPanel2.add(combosalones);
         combosalones.setBounds(630, 30, 140, 20);
 
@@ -356,12 +354,22 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jPanel2.add(jLabel12);
         jLabel12.setBounds(200, 30, 350, 20);
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 1010, 280));
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Estimado Docente o Estudiante al recibir el equipo solcitado se hace totalmente responsable de mismo. En caso de cualquier daño o falla ocasionado por mal uso o manejo indebido de un equipo ");
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(20, 240, 960, 14);
+
+        jLabel15.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("el responsable asumira todos los costos de reparacion o en su defecto asumira el valor total del equipo solicitado. Para la devolucion de un equipo prestado debe dirigirse al coordinador de sistemas.");
+        jPanel2.add(jLabel15);
+        jLabel15.setBounds(20, 254, 960, 20);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mis Prestamos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel3.setLayout(null);
 
-        jLabel11.setText("Nombres  ");
+        jLabel11.setText("Nombre:");
         jPanel3.add(jLabel11);
         jLabel11.setBounds(10, 20, 80, 14);
 
@@ -374,17 +382,17 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jPanel3.add(jLabel10);
         jLabel10.setBounds(350, 20, 100, 14);
 
-        txtapellidos.setEditable(false);
-        jPanel3.add(txtapellidos);
-        txtapellidos.setBounds(180, 40, 160, 20);
+        txtcarrera.setEditable(false);
+        jPanel3.add(txtcarrera);
+        txtcarrera.setBounds(200, 40, 140, 20);
 
-        jLabel9.setText("Apellidos");
+        jLabel9.setText("Programa:");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(180, 20, 90, 14);
+        jLabel9.setBounds(200, 20, 90, 14);
 
-        txtnombres.setEditable(false);
-        jPanel3.add(txtnombres);
-        txtnombres.setBounds(10, 40, 160, 20);
+        txtnombre.setEditable(false);
+        jPanel3.add(txtnombre);
+        txtnombre.setBounds(10, 40, 180, 20);
 
         miTablaPrestamos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -403,11 +411,42 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
         jPanel3.add(jScrollPane3);
         jScrollPane3.setBounds(10, 70, 440, 40);
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 460, 150));
-
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/pattern_texture1186.jpg"))); // NOI18N
         jLabel6.setText("                       ");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 500));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(500, 500, 500)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
       
@@ -551,7 +590,9 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -572,12 +613,12 @@ public class panelPrestamoVideoBean extends javax.swing.JPanel{
     private javax.swing.JLabel lblcodestu;
     private javax.swing.JTable miTabla;
     private javax.swing.JTable miTablaPrestamos;
-    private javax.swing.JTextField txtapellidos;
+    private javax.swing.JTextField txtcarrera;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtinventarionum;
     private javax.swing.JTextField txtmarca;
     private javax.swing.JTextField txtmodelo;
-    private javax.swing.JTextField txtnombres;
+    private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtserialnum;
     // End of variables declaration//GEN-END:variables
 

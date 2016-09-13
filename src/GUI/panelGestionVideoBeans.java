@@ -9,6 +9,8 @@ package GUI;
 import DAO.PrestamoBeamJpaController;
 import DAO.VideoBeamJpaController;
 import DAO.exceptions.NonexistentEntityException;
+import bibliotecafusm.PrestamoBeam;
+import bibliotecafusm.PrestamoLibro;
 import bibliotecafusm.Usuario;
 import bibliotecafusm.VideoBeam;
 
@@ -501,6 +503,24 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
     
     
     
+     public Long getIdprestamoxCodSerialBean (String serial){
+        
+        Long id = -11L;
+        
+        List<PrestamoBeam> listaPrestamos = prestamoBeamsjpa.findPrestamoBeamEntities();
+        
+        for (int i = 0; i < listaPrestamos.size(); i++) {
+            if(listaPrestamos.get(i).getSerialBeam().equals(serial)){
+                id = listaPrestamos.get(i).getPk();
+            }
+        }
+
+        return id;
+    }
+    
+     
+     
+     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         if(jLabel13.getText().equals("Cancelar")){
@@ -650,8 +670,8 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
      
                  if(!prestamoBeamsjpa.findPrestamoBeamEntities().isEmpty()){   
                     
-                    if (!prestamoBeamsjpa.findPrestamoBeam(id).equals(null)) {
-                        prestamoBeamsjpa.destroy(id); 
+                    if (!prestamoBeamsjpa.findPrestamoBeam(getIdprestamoxCodSerialBean (id)).equals(null)) {
+                        prestamoBeamsjpa.destroy(getIdprestamoxCodSerialBean (id)); 
                         
                         System.out.println("elimino prestamo del VidBEam");
                     }
