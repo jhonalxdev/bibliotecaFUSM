@@ -421,7 +421,10 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
      userencontrado.setNombres(txtnombres.getText().trim());
      userencontrado.setApellidos(txtapellidos.getText().trim());
      
-     userencontrado.setCarrera(combocarreras.getSelectedItem().toString());
+   
+         userencontrado.setCarrera(combocarreras.getSelectedItem().toString());
+     
+   
      userencontrado.setTipoUsuario(jComboBox1.getSelectedItem().toString());
             
         if(!txttelefono.getText().equals("".trim())){
@@ -492,7 +495,14 @@ public class panelRegistroUsuarios extends javax.swing.JPanel{
             String nombres = txtnombres.getText().trim();
             String apellidos = txtapellidos.getText().trim();
             
-            String carrera= combocarreras.getSelectedItem().toString();
+            String carrera= "---";
+     if(jComboBox1.getSelectedItem().toString().equals("Docente") || jComboBox1.getSelectedItem().toString().equals("Admin")){
+         userencontrado.setCarrera(carrera);
+     }else{
+         carrera= combocarreras.getSelectedItem().toString();
+     }
+            
+            
             String tipo= jComboBox1.getSelectedItem().toString();
   
             if(!txttelefono.getText().equals("".trim())){

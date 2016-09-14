@@ -51,6 +51,8 @@ public class PrestamoBeam implements Serializable {
 
     @Column (length = 20,nullable = false,unique = false)
     private String estadoPrestamo;
+    
+   
 
     
     
@@ -67,7 +69,7 @@ public class PrestamoBeam implements Serializable {
         this.salonPrestamo = salonPrestamo;
         
         this.fechaPrestamo = getFechaActual (); 
-        this.estadoPrestamo = "Activo";
+        this.estadoPrestamo = "Solcitud";
     }
 
 

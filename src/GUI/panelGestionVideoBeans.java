@@ -120,7 +120,7 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
         jButton2 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
@@ -153,14 +153,11 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
         jScrollPane1.setViewportView(jTable1);
 
         setOpaque(false);
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/projector.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 90, 90));
 
         lblupdateicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/updateicon.png"))); // NOI18N
         lblupdateicon.setText("          ");
-        add(lblupdateicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registrar Video Beam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -213,7 +210,7 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
         jLabel13.setText("Limpiar Form");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, 90, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "No disponible" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Disponible", "No disponible" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 110, 20));
 
         jLabel2.setText("Disponibilidad ");
@@ -253,8 +250,6 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
 
         jLabel8.setText("Proyector  No.");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 80, 90, -1));
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1010, 160));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "                 Video Beams Registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), java.awt.Color.blue)); // NOI18N
         jPanel2.setLayout(null);
@@ -308,11 +303,43 @@ public class panelGestionVideoBeans extends javax.swing.JPanel{
         jPanel2.add(jLabel17);
         jLabel17.setBounds(79, 17, 84, 37);
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1010, 270));
-
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/pattern_texture1186.jpg"))); // NOI18N
         jLabel6.setText("                       ");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 500));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblupdateicon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblupdateicon))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
       

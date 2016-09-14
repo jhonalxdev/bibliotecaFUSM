@@ -442,8 +442,9 @@ public class Principal extends javax.swing.JFrame  {
     
     
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        this.setVisible(false);
-        lo.setVisible(true);
+//        this.setVisible(false);
+//        lo.setVisible(true);
+        System.exit(0); 
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered

@@ -125,26 +125,25 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         organizatamseccionestablas();
         
         updateTableLibros();
-        
+        updateTableBeams(); 
         cargarCombosalones(); 
   
     }
 
-    public void updateListaPrestamoLibrosBD(){
-
-        listaPrestamoLibrosdelaBD.clear();
-        
-        for (PrestamoLibro p : prestamolibrosjpa.findPrestamoLibroEntities()) {
-            
-                if(!p.getEstadoPrestamo().equals("Entregado")){
-                listaPrestamoLibrosdelaBD.add(p);
-                }         
-        }
  
-    }
     
     public void updateListaPrestamoBeamsBD(){
-        listaPrestamoBeamsdelaBD = prestamoBeamsjpa.findPrestamoBeamEntities();
+        listaPrestamoBeamsdelaBD.clear();
+        
+        for (PrestamoBeam p : prestamoBeamsjpa.findPrestamoBeamEntities()) {
+            
+                if(!p.getEstadoPrestamo().equals("Entregado")){
+   
+                listaPrestamoBeamsdelaBD.add(p);
+                }         
+        }
+        
+      
     }
     
     
@@ -893,15 +892,21 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     vbencontrado.setDisponibilidad("Disponible");
                     proyectoresjpa.edit(vbencontrado);
 
-                    prestamoBeamsjpa.destroy(getIdprestamoxCodSerialBean (snbeam));
+//                    prestamoBeamsjpa.destroy(getIdprestamoxCodSerialBean (snbeam));
+
+                    p.setEstadoPrestamo("Entregado");
+                    prestamoBeamsjpa.edit(p);
+                    
 
                     updateTableBeams(); 
                     JOptionPane.showMessageDialog(null, "Devolucion del prestamo confirmada");
 
                 } catch (NonexistentEntityException ex) {
                     Logger.getLogger(panelGestionPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 } catch (Exception ex) {
                     Logger.getLogger(panelGestionPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
             }
         }
@@ -971,11 +976,13 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-     
+         genReporPrestamoLibros ventanagenReportLibros = new genReporPrestamoLibros ();
+           ventanagenReportLibros.setVisible(true);     
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+      genReporPrestamoBeans ventanagenReportbeans = new genReporPrestamoBeans ();
+           ventanagenReportbeans.setVisible(true);           
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void combosalonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combosalonesActionPerformed
@@ -1058,13 +1065,14 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
     
         // actulizar tabla prestamos con info base de datos
     public void updateTableBeams() {
-
+     
          // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
          updateListaPrestamoBeamsBD();
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla
         ((AbstractTableModel) miTablaPrestamosBeams.getModel()).fireTableDataChanged();
+        
 
     }
     
@@ -1074,10 +1082,23 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
 
         // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
-        updateListaPrestamoLibrosBD();
+        
+        listaPrestamoLibrosdelaBD = new ArrayList<PrestamoLibro>(); 
+       
+        for (PrestamoLibro p : prestamolibrosjpa.findPrestamoLibroEntities()) {
+            
+                if(!p.getEstadoPrestamo().equals("Entregado")){
+   
+                listaPrestamoLibrosdelaBD.add(p);
+  
+                }       
+        }
+        
+
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla
         ((AbstractTableModel) miTablaPrestamolibros.getModel()).fireTableDataChanged();
+   
 
     }
     
@@ -1098,7 +1119,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         @Override
         public int getRowCount() {
             // devuelve la cant objetos - tantos objetos tenga la lista
-            return prestamoBeamsjpa.findPrestamoBeamEntities().size();
+            return listaPrestamoBeamsdelaBD.size();
         }
 
         // cuantas columnas tiene la tabla en la base
@@ -1111,7 +1132,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         // la informacion de la fila y la informacion de las columnas
         @Override
         public Object getValueAt(int fila, int columna) {
-
+        
            PrestamoBeam p = listaPrestamoBeamsdelaBD.get(fila);
 
             Object salida = "";
