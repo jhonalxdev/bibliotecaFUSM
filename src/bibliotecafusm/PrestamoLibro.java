@@ -38,6 +38,11 @@ public class PrestamoLibro implements Serializable  {
     @Column (length = 80,nullable = false,unique = false)
     private String idUsuario;
     
+
+    
+    
+    
+     
     @Column (length = 80,nullable = false,unique = false)
     private String tipoUsuario;
     
@@ -62,6 +67,7 @@ public class PrestamoLibro implements Serializable  {
         this.fechaPrestamo = "---";
         this.entregaPrestamo = "---";
         this.estadoPrestamo = "Solicitud";
+        
     }
     
     
@@ -200,7 +206,7 @@ public class PrestamoLibro implements Serializable  {
     public void setPk(Long pk) {
         this.pk = pk;
     }
-    
+
     
     
     

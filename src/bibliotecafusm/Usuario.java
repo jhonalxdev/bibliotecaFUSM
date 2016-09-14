@@ -52,7 +52,10 @@ public class Usuario implements Serializable{
         this.identificacion = identificacion;
         this.nombres = nombres;
         this.apellidos = apellidos;
+        
+        
         this.carrera = carrera;
+        
         this.tipoUsuario = tpuser;
         this.numtelefono = numtelefono;
         this.email = email;
