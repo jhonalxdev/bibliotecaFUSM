@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04ed9f33-8c43-45de-84dc-3248f6ec5efe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     prestamolibro.`CODIGOLIBRO` AS prestamolibro_CODIGOLIBRO,
+     prestamolibro.`ENTREGAPRESTAMO` AS prestamolibro_ENTREGAPRESTAMO,
+     prestamolibro.`ESTADOPRESTAMO` AS prestamolibro_ESTADOPRESTAMO,
+     prestamolibro.`FECHAPRESTAMO` AS prestamolibro_FECHAPRESTAMO,
+     prestamolibro.`IDUSUARIO` AS prestamolibro_IDUSUARIO,
+     prestamolibro.`NOMBRELIBRO` AS prestamolibro_NOMBRELIBRO,
+     prestamolibro.`NOMBREUSUARIO` AS prestamolibro_NOMBREUSUARIO,
+     prestamolibro.`TIPOUSUARIO` AS prestamolibro_TIPOUSUARIO
+FROM
+     `prestamolibro` prestamolibro]]>
+	</queryString>
+	<field name="prestamolibro_CODIGOLIBRO" class="java.lang.String"/>
+	<field name="prestamolibro_ENTREGAPRESTAMO" class="java.lang.String"/>
+	<field name="prestamolibro_ESTADOPRESTAMO" class="java.lang.String"/>
+	<field name="prestamolibro_FECHAPRESTAMO" class="java.lang.String"/>
+	<field name="prestamolibro_IDUSUARIO" class="java.lang.String"/>
+	<field name="prestamolibro_NOMBRELIBRO" class="java.lang.String"/>
+	<field name="prestamolibro_NOMBREUSUARIO" class="java.lang.String"/>
+	<field name="prestamolibro_TIPOUSUARIO" class="java.lang.String"/>
+	<variable name="prestamolibro_CODIGOLIBRO_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{prestamolibro_CODIGOLIBRO}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="228" y="14" width="328" height="50" uuid="205b1151-6eee-452c-8ffe-ca634494aaa3"/>
+				<textElement>
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[Reporte Prestamos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="80" height="20" uuid="e92f04a5-9b30-4dd9-b7e7-abd6feeb7711"/>
+				<text><![CDATA[CODIGO LIBRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="2" width="55" height="30" uuid="fe5a627c-4f12-45b6-8165-1cff48c414f1"/>
+				<text><![CDATA[ENTREGA PRESTAMO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="2" width="62" height="30" uuid="72c908ba-9475-459e-b570-207405a77060"/>
+				<text><![CDATA[ESTADO PRESTAMO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="2" width="100" height="20" uuid="d3079d33-0e8d-46f1-8442-0395cfcd5107"/>
+				<text><![CDATA[FECHA PRESTAMO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="2" width="61" height="20" uuid="7b889e5e-c292-4dbb-9898-7c46f7fbbb2c"/>
+				<text><![CDATA[ID USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="2" width="100" height="20" uuid="40f85df8-973d-4b9d-b343-a6a6cb7e85d8"/>
+				<text><![CDATA[NOMBRE LIBRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="531" y="2" width="100" height="20" uuid="a6bf4935-920c-49ce-b348-375c37306d01"/>
+				<text><![CDATA[NOMBRE USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="645" y="2" width="100" height="20" uuid="dabb2c62-0dd3-4b1b-9e12-0d8ac954ed04"/>
+				<text><![CDATA[TIPO USUARIO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="c3b57319-746c-447c-9998-5417d9dd49db"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_CODIGOLIBRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="0" width="55" height="20" uuid="fbf18300-ff9c-41e8-9dd5-88f7918132a2"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_ENTREGAPRESTAMO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="0" width="62" height="20" uuid="3c4d188e-e73c-4f92-9459-f9ab0227cea9"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_ESTADOPRESTAMO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="100" height="20" uuid="91e0dc6a-46f3-4598-af5f-1f80ebf07b29"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_FECHAPRESTAMO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="61" height="20" uuid="da1702fe-6b39-49db-be48-0ebde3c6b72b"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_IDUSUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="100" height="20" uuid="fb703421-b4fb-4879-a909-473a4ece26c6"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_NOMBRELIBRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="531" y="0" width="100" height="20" uuid="52444544-cf9f-40bd-b030-44c5f2230f3f"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_NOMBREUSUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="645" y="0" width="100" height="20" uuid="4fbe58b4-7045-4dd7-8cfe-d0762c24cd10"/>
+				<textFieldExpression><![CDATA[$F{prestamolibro_TIPOUSUARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
