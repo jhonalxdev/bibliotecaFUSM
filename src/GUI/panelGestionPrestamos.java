@@ -12,6 +12,7 @@ import DAO.SalondeClasesJpaController;
 import DAO.VideoBeamJpaController;
 
 import DAO.exceptions.NonexistentEntityException;
+import bibliotecafusm.EstadoPrestamo;
 import bibliotecafusm.Libro;
 import bibliotecafusm.PrestamoBeam;
 import bibliotecafusm.PrestamoLibro;
@@ -21,6 +22,7 @@ import bibliotecafusm.VideoBeam;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -503,7 +505,8 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             if(opc == 0) {
             
                 p.renovarPrestamoLibro();
-                p.setEstadoPrestamo("Renovado");
+                p.setEstadoPrestamo(EstadoPrestamo.RENOVADO);
+//                p.setEstadoPrestamo("Renovado");
                 
                 try {
                     prestamolibrosjpa.edit(p);
@@ -520,7 +523,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                                               + "    una ves devulto el libro, el usuario puede solicitar nuevamente el prestamo del mismo", "Error",JOptionPane.ERROR_MESSAGE);
         
         }else{
-            p.setEstadoPrestamo("Activo");
+            p.setEstadoPrestamo(EstadoPrestamo.ACTIVO);
             JOptionPane.showMessageDialog(null, "El estado del prestamo ahora es Activo");
            try {
                prestamolibrosjpa.edit(p);
@@ -808,7 +811,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     lencontrado.setEstado("Disponible");
                     librosjpa.edit(lencontrado);
 
-                    p.setEstadoPrestamo("Entregado");
+                    p.setEstadoPrestamo(EstadoPrestamo.DEVUELTO);
                     prestamolibrosjpa.edit(p);
 //                    prestamolibrosjpa.destroy(getIdprestamoxCodLibro (codLibro));
 
@@ -894,7 +897,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
 
 //                    prestamoBeamsjpa.destroy(getIdprestamoxCodSerialBean (snbeam));
 
-                    p.setEstadoPrestamo("Entregado");
+                    p.setEstadoPrestamo(EstadoPrestamo.DEVUELTO);
                     prestamoBeamsjpa.edit(p);
                     
 
@@ -1244,7 +1247,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
         public Object getValueAt(int fila, int columna) {
 
             PrestamoLibro nuevoPrestamo = listaPrestamoLibrosdelaBD.get(fila);
-
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             Object salida = "";
 
             switch (columna) {
@@ -1269,15 +1272,15 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     break;
 
                 case 5:
-                    salida = nuevoPrestamo.getFechaPrestamo();
+                    salida = nuevoPrestamo.getFechaActivacionPrestamo();
                     break;
                     
                 case 6:
-                    salida = nuevoPrestamo.getEntregaPrestamo();
+                    salida = sdf.format(nuevoPrestamo.getFechaMaxDevolucion());
                     break;
 
                 case 7:
-                    salida = nuevoPrestamo.getEstadoPrestamo();
+                    salida = nuevoPrestamo.getEstadoPrestamo().toString();
                     break;
 
             }

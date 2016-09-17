@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Jhon Alex
+ * @author Paulker
  */
 public class PrestamoLibroJpaController implements Serializable {
 

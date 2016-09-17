@@ -6,6 +6,7 @@
 package GUI;
 
 import DAO.PrestamoLibroJpaController;
+import bibliotecafusm.EstadoPrestamo;
 import bibliotecafusm.PrestamoLibro;
 import bibliotecafusm.Usuario;
 import java.awt.BorderLayout;
@@ -14,18 +15,13 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.font.TextAttribute;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 
 /**
@@ -330,28 +326,19 @@ public class Principal extends javax.swing.JFrame  {
         
         for (PrestamoLibro p : prestamolibrosjpa.findPrestamoLibroEntities()) {
             
-            if(!p.getEntregaPrestamo().equals("---")){  
+            if(p.getFechaMaxDevolucion()!=null){  
             
-            try {
-
-               fechaDate = fecha.parse(p.getEntregaPrestamo());
-            
-            
-                   // validacion fecha posterior a la actul
+                fechaDate = p.getFechaMaxDevolucion();
                 if (new Date().after(fechaDate)) {
                     // asignar estado vencido al libro que la fecha devolucion sea posterior ala actual
-                    p.setEstadoPrestamo("Vencido");
-
-                   try {
-                       prestamolibrosjpa.edit(p);
-                   } catch (Exception ex) {
-                       // Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-                 }
- 
-            } catch (ParseException ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    p.setEstadoPrestamo(EstadoPrestamo.VENCIDO);
+                    
+                    try {
+                        prestamolibrosjpa.edit(p);
+                    } catch (Exception ex) {
+                        // Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             
             }
         }

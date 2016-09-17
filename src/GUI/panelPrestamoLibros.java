@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Array;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1173,7 +1174,7 @@ public void updateCarrito(){
         public Object getValueAt(int fila, int columna) {
 
             PrestamoLibro nuevoPrestamo = listaPrestamoLibrosdelaBD.get(fila);
-
+          SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             Object salida = "";
 
             switch (columna) {
@@ -1187,15 +1188,15 @@ public void updateCarrito(){
                     break;
 
                 case 2:
-                    salida = nuevoPrestamo.getFechaPrestamo();
+                    salida = nuevoPrestamo.getFechaActivacionPrestamo();
                     break;
                     
                 case 3:
-                    salida = nuevoPrestamo.getEntregaPrestamo();
+                    salida = sdf.format(nuevoPrestamo.getFechaMaxDevolucion());
                     break;
 
                 case 4:
-                    salida = nuevoPrestamo.getEstadoPrestamo();
+                    salida = nuevoPrestamo.getEstadoPrestamo().toString();
                     break;
 
             }
@@ -1203,30 +1204,12 @@ public void updateCarrito(){
             return salida;
 
         }
-
+        
+        String[] nombres = {"CODIGO","TITULO","PRESTAMO","DEVOLUCION","ESTADO"};
         // nombres de las columnas
         @Override
         public String getColumnName(int columna) {
-
-            switch (columna) {
-                case 0:
-                    return "CODIGO";
-
-                case 1:
-                    return "TITULO";
-
-                case 2:
-                    return "PRESTAMO";
-
-                case 3:
-                    return "DEVOLUCION";
-                    
-                case 4:
-                    return "ESTADO";
-            }
-
-            return "";
-
+            return nombres[columna];
         }
 
      

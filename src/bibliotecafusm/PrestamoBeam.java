@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bibliotecafusm;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -47,10 +42,11 @@ public class PrestamoBeam implements Serializable {
         
         
     @Column (length = 20,nullable = false,unique = false)
-    private String fechaPrestamo;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaPrestamo;
 
     @Column (length = 20,nullable = false,unique = false)
-    private String estadoPrestamo;
+    private EstadoPrestamo estadoPrestamo;
     
    
 
@@ -68,8 +64,8 @@ public class PrestamoBeam implements Serializable {
         this.tipoUsuario = tipoUsuario;
         this.salonPrestamo = salonPrestamo;
         
-        this.fechaPrestamo = getFechaActual (); 
-        this.estadoPrestamo = "Solcitud";
+        this.fechaPrestamo = new Date (); 
+        this.estadoPrestamo = EstadoPrestamo.SOLICITUD;
     }
 
 
@@ -77,17 +73,7 @@ public class PrestamoBeam implements Serializable {
     //  FORMATO FECHAS 13/07/2016    dia/mes/annio
     
     
-    public String getFechaActual (){
-        Calendar cal = new GregorianCalendar(); 
-        //--
-        int annio = Integer.parseInt(""+cal.get(Calendar.YEAR)); 
-        int mes = cal.get(Calendar.MONTH);
-        int dia = cal.get(Calendar.DAY_OF_MONTH);
-        //--
-        mes++;
-        return  dia+"/"+mes+"/"+annio;
-    }
-
+   
     public String getSerialBeam() {
         return serialBeam;
     }
@@ -144,21 +130,24 @@ public class PrestamoBeam implements Serializable {
         this.salonPrestamo = salonPrestamo;
     }
 
-    public String getFechaPrestamo() {
+    public Date getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public void setFechaPrestamo(String fechaPrestamo) {
+    public void setFechaPrestamo(Date fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public String getEstadoPrestamo() {
+    public EstadoPrestamo getEstadoPrestamo() {
         return estadoPrestamo;
     }
 
-    public void setEstadoPrestamo(String estadoPrestamo) {
+    public void setEstadoPrestamo(EstadoPrestamo estadoPrestamo) {
         this.estadoPrestamo = estadoPrestamo;
     }
+
+    
+
 
     public Long getPk() {
         return pk;

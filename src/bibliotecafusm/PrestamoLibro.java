@@ -6,56 +6,56 @@
 package bibliotecafusm;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Jhon Alex
  */
-
 @Entity
-public class PrestamoLibro implements Serializable  {
-    
+public class PrestamoLibro implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
-    
-    @Column (length = 80,nullable = false,unique = false)
-    private String codigoLibro;
-    
-    @Column (length = 80,nullable = false,unique = false)
-    private String nombreLibro;
-    
-    @Column (length = 80,nullable = false,unique = false)
-    private String nombreUsuario;
-    
-    @Column (length = 80,nullable = false,unique = false)
-    private String idUsuario;
-    
 
-    
-    
-    
-     
-    @Column (length = 80,nullable = false,unique = false)
+    @Column(length = 80, nullable = false, unique = false)
+    private String codigoLibro;
+
+    @Column(length = 80, nullable = false, unique = false)
+    private String nombreLibro;
+
+    @Column(length = 80, nullable = false, unique = false)
+    private String nombreUsuario;
+
+    @Column(length = 80, nullable = false, unique = false)
+    private String idUsuario;
+
+    @Column(length = 80, nullable = false, unique = false)
     private String tipoUsuario;
-    
-    @Column (length = 20,nullable = false,unique = false)
-    private String fechaPrestamo;
-    @Column (length = 20,nullable = false,unique = false)
-    private String entregaPrestamo;
-    @Column (length = 20,nullable = false,unique = false)
-    private String estadoPrestamo;
+    @Column(length = 20, nullable = true, unique = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaSolicitud; //fecha en que se solicita el prestamo
+    @Column(length = 20, nullable = true, unique = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaActivacionPrestamo; //fecha de cuando se le entrega el libro al usuario
+    @Column(length = 20, nullable = true, unique = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaMaxDevolucion; //fecha maxima hasta la devolucion
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(length = 20, nullable = true, unique = false)
+    private Date fechaDevolucion;
+    @Column(length = 20, nullable = false, unique = false)
+    private EstadoPrestamo estadoPrestamo;
 
     public PrestamoLibro() {
     }
-
 
     public PrestamoLibro(String codigoLibro, String nombreLibro, String nombreUsuario, String idUsuario, String tipoUsuario) {
         this.codigoLibro = codigoLibro;
@@ -63,78 +63,29 @@ public class PrestamoLibro implements Serializable  {
         this.nombreUsuario = nombreUsuario;
         this.idUsuario = idUsuario;
         this.tipoUsuario = tipoUsuario;
-        
-        this.fechaPrestamo = "---";
-        this.entregaPrestamo = "---";
-        this.estadoPrestamo = "Solicitud";
-        
-    }
-    
-    
-    public void renovarPrestamoLibro(){
-        this.fechaPrestamo = getFechaActual ();
-        this.entregaPrestamo = getcalcFechaDevolucion ();
-    }
-    
-    public void activarPrestamoLibro(){
-        this.fechaPrestamo = getFechaActual ();
-        this.entregaPrestamo = getcalcFechaDevolucion ();
-    }
-    
 
-    
-//  FORMATO FECHAS 13/07/2016    dia/mes/annio
-    
-    
-    public String getFechaActual (){
-        Calendar cal = new GregorianCalendar(); 
-        //--
-        int annio = Integer.parseInt(""+cal.get(Calendar.YEAR)); 
-        int mes = cal.get(Calendar.MONTH);
-        int dia = cal.get(Calendar.DAY_OF_MONTH);
-        //--
-        mes++;
-        return  dia+"/"+mes+"/"+annio;
-    }
-    
-    
-    public String getcalcFechaDevolucion (){
-        
-       Calendar cal = new GregorianCalendar(); 
+        this.fechaActivacionPrestamo = null;
+        this.fechaDevolucion = null;
+        this.estadoPrestamo = EstadoPrestamo.SOLICITUD;
 
-        //--
-        int annio = Integer.parseInt(""+cal.get(Calendar.YEAR)); 
-        int mes = cal.get(Calendar.MONTH);
-        int dia = cal.get(Calendar.DAY_OF_MONTH);
-        mes++;
-        //-- 
-        
-        int diasdelmes = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        boolean avanzomes = false;
-        
-        for (int i = 0; i < 7; i++) {
-            if(dia==diasdelmes){
-                dia =0;
-                avanzomes = true;
-            }
-                dia++;      
-        }
-        
-        if(avanzomes){
-            if(mes==11){
-                mes=0;
-                annio++; 
-            }else{
-                mes++;
-            }
-        }
-        
-        return  dia+"/"+mes+"/"+annio;
     }
-    
-    
-    
 
+    public void renovarPrestamoLibro() {
+        this.fechaActivacionPrestamo = new Date();
+        this.fechaDevolucion = Calendario.getcalcFechaDevolucion(fechaActivacionPrestamo, 7);
+        
+    }
+
+    public void activarPrestamoLibro() {
+        this.fechaActivacionPrestamo = new Date();
+        this.fechaDevolucion = Calendario.getcalcFechaDevolucion(fechaActivacionPrestamo, 7);
+    }
+
+//  
+    
+    
+    
+ 
     public String getCodigoLibro() {
         return codigoLibro;
     }
@@ -175,29 +126,47 @@ public class PrestamoLibro implements Serializable  {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public String getFechaPrestamo() {
-        return fechaPrestamo;
+    public Date getFechaSolicitud() {
+        return fechaSolicitud;
     }
 
-    public void setFechaPrestamo(String fechaPrestamo) {
-        this.fechaPrestamo = fechaPrestamo;
+    public void setFechaSolicitud(Date fechaSolicitud) {
+        this.fechaSolicitud = fechaSolicitud;
     }
 
-    public String getEntregaPrestamo() {
-        return entregaPrestamo;
+    public Date getFechaActivacionPrestamo() {
+        return fechaActivacionPrestamo;
     }
 
-    public void setEntregaPrestamo(String entregaPrestamo) {
-        this.entregaPrestamo = entregaPrestamo;
+    public void setFechaActivacionPrestamo(Date fechaActivacionPrestamo) {
+        this.fechaActivacionPrestamo = fechaActivacionPrestamo;
     }
 
-    public String getEstadoPrestamo() {
+    public Date getFechaMaxDevolucion() {
+        return fechaMaxDevolucion;
+    }
+
+    public void setFechaMaxDevolucion(Date fechaMaxDevolucion) {
+        this.fechaMaxDevolucion = fechaMaxDevolucion;
+    }
+
+    public Date getFechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+    public void setFechaDevolucion(Date fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public EstadoPrestamo getEstadoPrestamo() {
         return estadoPrestamo;
     }
 
-    public void setEstadoPrestamo(String estadoPrestamo) {
+    public void setEstadoPrestamo(EstadoPrestamo estadoPrestamo) {
         this.estadoPrestamo = estadoPrestamo;
     }
+
+   
 
     public Long getPk() {
         return pk;
@@ -207,9 +176,4 @@ public class PrestamoLibro implements Serializable  {
         this.pk = pk;
     }
 
-    
-    
-    
-    
 }
-
