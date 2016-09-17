@@ -844,7 +844,8 @@ public void updateCarrito(){
                 if(cantlibros==1){
                     Libro libro1 = listaLibroscarrito.get(0);
                     PrestamoLibro p = new PrestamoLibro(libro1.getCodigoLibro(),libro1.getNombreLibro(),userlogin.getApellidos()+" "+userlogin.getNombres(),userlogin.getIdentificacion(),userlogin.getTipoUsuario());
-               
+                   
+                    
                     try {
                         prestamolibrosjpa.create(p);
                     
@@ -1176,7 +1177,7 @@ public void updateCarrito(){
             PrestamoLibro nuevoPrestamo = listaPrestamoLibrosdelaBD.get(fila);
           SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             Object salida = "";
-
+            Date fecha;
             switch (columna) {
                 case 0:
 
@@ -1188,11 +1189,23 @@ public void updateCarrito(){
                     break;
 
                 case 2:
-                    salida = nuevoPrestamo.getFechaActivacionPrestamo();
+                     fecha = nuevoPrestamo.getFechaActivacionPrestamo();
+                    if(fecha!=null){
+                        salida = sdf.format(fecha);
+                     }else{
+                        salida = "---";
+                    }
                     break;
                     
                 case 3:
-                    salida = sdf.format(nuevoPrestamo.getFechaMaxDevolucion());
+                    
+                    fecha = nuevoPrestamo.getFechaMaxDevolucion();
+                    if(fecha!=null){
+                        salida = sdf.format(fecha);
+                     }else{
+                        salida = "---";
+                    }
+       
                     break;
 
                 case 4:

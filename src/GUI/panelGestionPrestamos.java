@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -495,7 +496,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
        PrestamoLibro p = prestamolibrosjpa.findPrestamoLibro(getIdprestamoxCodLibro (codLibro));  //*    
        p.activarPrestamoLibro();
        
-        if(p.getEstadoPrestamo().equals("Activo")){
+        if(p.getEstadoPrestamo() == EstadoPrestamo.ACTIVO){
         
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int opc = JOptionPane.showConfirmDialog (null, "    El prestamo indicado ya se encuentra Activo \n"
@@ -1249,6 +1250,7 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
             PrestamoLibro nuevoPrestamo = listaPrestamoLibrosdelaBD.get(fila);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             Object salida = "";
+            Date fecha;
 
             switch (columna) {
                 case 0:
@@ -1272,11 +1274,23 @@ public class panelGestionPrestamos extends javax.swing.JPanel {
                     break;
 
                 case 5:
-                    salida = nuevoPrestamo.getFechaActivacionPrestamo();
+                    fecha = nuevoPrestamo.getFechaActivacionPrestamo();
+                    if(fecha!=null){
+                        salida = sdf.format(fecha);
+                     }else{
+                        salida = "---";
+                    }
+                   
                     break;
                     
                 case 6:
-                    salida = sdf.format(nuevoPrestamo.getFechaMaxDevolucion());
+                    fecha = nuevoPrestamo.getFechaMaxDevolucion();
+                    if(fecha!=null){
+                        salida = sdf.format(fecha);
+                     }else{
+                        salida = "---";
+                    }
+                    
                     break;
 
                 case 7:

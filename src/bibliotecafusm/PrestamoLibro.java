@@ -66,19 +66,19 @@ public class PrestamoLibro implements Serializable {
 
         this.fechaActivacionPrestamo = null;
         this.fechaDevolucion = null;
+        this.fechaSolicitud = new Date();
         this.estadoPrestamo = EstadoPrestamo.SOLICITUD;
-
+        
     }
 
     public void renovarPrestamoLibro() {
-        this.fechaActivacionPrestamo = new Date();
-        this.fechaDevolucion = Calendario.getcalcFechaDevolucion(fechaActivacionPrestamo, 7);
+        activarPrestamoLibro();
         
     }
 
     public void activarPrestamoLibro() {
         this.fechaActivacionPrestamo = new Date();
-        this.fechaDevolucion = Calendario.getcalcFechaDevolucion(fechaActivacionPrestamo, 7);
+        this.fechaMaxDevolucion = Calendario.getcalcFechaDevolucion(fechaActivacionPrestamo, 5);
     }
 
 //  
