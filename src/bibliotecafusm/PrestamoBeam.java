@@ -46,7 +46,7 @@ public class PrestamoBeam implements Serializable {
     private Date fechaPrestamo;
 
     @Column (length = 20,nullable = false,unique = false)
-    private EstadoPrestamo estadoPrestamo;
+    private String estadoPrestamo;
     
    
 
@@ -65,7 +65,7 @@ public class PrestamoBeam implements Serializable {
         this.salonPrestamo = salonPrestamo;
         
         this.fechaPrestamo = new Date (); 
-        this.estadoPrestamo = EstadoPrestamo.SOLICITUD;
+        this.estadoPrestamo = EstadoPrestamo.SOLICITUD.toString();
     }
 
 
@@ -139,11 +139,11 @@ public class PrestamoBeam implements Serializable {
     }
 
     public EstadoPrestamo getEstadoPrestamo() {
-        return estadoPrestamo;
+        return EstadoPrestamo.valueOf(estadoPrestamo);
     }
 
     public void setEstadoPrestamo(EstadoPrestamo estadoPrestamo) {
-        this.estadoPrestamo = estadoPrestamo;
+        this.estadoPrestamo = estadoPrestamo.toString();
     }
 
     

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf10ec86-ac51-4b98-a4d5-56e2390fa19c">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     PRESTAMOLIBRO.`CODIGOLIBRO` AS PRESTAMOLIBRO_CODIGOLIBRO,
+     PRESTAMOLIBRO.`ESTADOPRESTAMO` AS PRESTAMOLIBRO_ESTADOPRESTAMO,
+     PRESTAMOLIBRO.`FECHAACTIVACIONPRESTAMO` AS PRESTAMOLIBRO_FECHAACTIVACIONPRESTAMO,
+     PRESTAMOLIBRO.`FECHADEVOLUCION` AS PRESTAMOLIBRO_FECHADEVOLUCION,
+     PRESTAMOLIBRO.`FECHAMAXDEVOLUCION` AS PRESTAMOLIBRO_FECHAMAXDEVOLUCION,
+     PRESTAMOLIBRO.`FECHASOLICITUD` AS PRESTAMOLIBRO_FECHASOLICITUD,
+     PRESTAMOLIBRO.`IDUSUARIO` AS PRESTAMOLIBRO_IDUSUARIO,
+     PRESTAMOLIBRO.`NOMBRELIBRO` AS PRESTAMOLIBRO_NOMBRELIBRO,
+     PRESTAMOLIBRO.`NOMBREUSUARIO` AS PRESTAMOLIBRO_NOMBREUSUARIO,
+     PRESTAMOLIBRO.`TIPOUSUARIO` AS PRESTAMOLIBRO_TIPOUSUARIO
+FROM
+     `PRESTAMOLIBRO` PRESTAMOLIBRO
+ORDER BY
+     PRESTAMOLIBRO.`ESTADOPRESTAMO` ASC]]>
+	</queryString>
+	<field name="PRESTAMOLIBRO_CODIGOLIBRO" class="java.lang.String"/>
+	<field name="PRESTAMOLIBRO_ESTADOPRESTAMO" class="java.lang.Integer"/>
+	<field name="PRESTAMOLIBRO_FECHAACTIVACIONPRESTAMO" class="java.sql.Date"/>
+	<field name="PRESTAMOLIBRO_FECHADEVOLUCION" class="java.sql.Date"/>
+	<field name="PRESTAMOLIBRO_FECHAMAXDEVOLUCION" class="java.sql.Date"/>
+	<field name="PRESTAMOLIBRO_FECHASOLICITUD" class="java.sql.Date"/>
+	<field name="PRESTAMOLIBRO_IDUSUARIO" class="java.lang.String"/>
+	<field name="PRESTAMOLIBRO_NOMBRELIBRO" class="java.lang.String"/>
+	<field name="PRESTAMOLIBRO_NOMBREUSUARIO" class="java.lang.String"/>
+	<field name="PRESTAMOLIBRO_TIPOUSUARIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="79" height="29" forecolor="#000000" uuid="0a8dd418-df8f-4a31-a215-6b2a6bdb791d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Codigo Libro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="79" y="0" width="79" height="29" forecolor="#000000" uuid="c1562d04-eb3c-4fa9-8b53-8ce46538b70b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estado Prestamo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="158" y="0" width="79" height="29" forecolor="#000000" uuid="9d49e17d-90e3-4e0e-a666-e276aecedeaf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha Activacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="237" y="0" width="79" height="29" forecolor="#000000" uuid="75ede00b-0093-4771-bf83-5f6c9560fa59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha Devolucion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="316" y="0" width="79" height="29" forecolor="#000000" uuid="4563407b-a8ac-46a8-90db-da9629ef4383"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha Max Devolucion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="395" y="0" width="79" height="29" forecolor="#000000" uuid="ce447f42-95e7-4464-acab-709e3220340b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="474" y="0" width="79" height="29" forecolor="#000000" uuid="a4d82e47-4544-4402-a92f-f5904a6d724c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Id Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="553" y="0" width="79" height="29" forecolor="#000000" uuid="8582e4b2-9498-4321-ba2b-cd2c48e36006"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombre Libro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="632" y="0" width="79" height="29" forecolor="#000000" uuid="ebccc7c6-bd59-4705-9d51-0be6bf9ed35f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombre Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="711" y="0" width="79" height="29" forecolor="#000000" uuid="69d32c06-0d9d-4ce1-8630-fb9f986c2631"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tipo Usuario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="c298dfa0-48a2-47b7-a4b2-0c7259bdfd6c"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="79" height="18" uuid="daad26a4-47c3-498c-a39c-19ba9c2a07a2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_CODIGOLIBRO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="79" y="0" width="79" height="18" uuid="c6a1febb-0c43-4738-bc33-b5537c844713"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_ESTADOPRESTAMO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="158" y="0" width="79" height="18" uuid="ca03407b-3763-4d02-ac6f-bdd1bc116b57"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_FECHAACTIVACIONPRESTAMO}==null?"---":$F{PRESTAMOLIBRO_FECHAACTIVACIONPRESTAMO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="237" y="0" width="79" height="18" uuid="9a47174d-cf8b-4fa5-ba11-26eeb96d6909"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_FECHADEVOLUCION}==null?"---":$F{PRESTAMOLIBRO_FECHADEVOLUCION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="316" y="0" width="79" height="18" uuid="5497ebf1-2d96-4f0e-a135-904231484a8f"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_FECHAMAXDEVOLUCION}==null?"---":$F{PRESTAMOLIBRO_FECHAMAXDEVOLUCION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="395" y="0" width="79" height="18" uuid="1ff13d85-2f05-4bb7-85e3-4187091f89ad"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_FECHASOLICITUD}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="474" y="0" width="79" height="18" uuid="5277eb96-8b02-4d1e-b91c-b6c2ee86c01f"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_IDUSUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="553" y="0" width="79" height="18" uuid="d12dcb22-4cc5-4409-8d47-cf6bb1636979"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_NOMBRELIBRO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="632" y="0" width="79" height="18" uuid="b3bed9d0-fca7-4e28-9b81-b150e04e7947"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_NOMBREUSUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="711" y="0" width="79" height="18" uuid="be21d6f7-1f9a-4930-9c3c-dd7ce28994e5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PRESTAMOLIBRO_TIPOUSUARIO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="88fb2828-3d1d-4043-b4d4-1fd631bd13ab"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#3366FF" uuid="293d4afb-2aa1-4a3f-9f83-9fbc28077a89"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="a20f6d67-c3e1-4c6f-9b2b-de3f6e28025d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF" uuid="e477cfdf-673a-4fa0-85b5-1bf3822eef33"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="40e5fc3d-6bdf-4406-a2f5-358daf4e3040"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

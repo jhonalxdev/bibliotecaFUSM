@@ -24,13 +24,13 @@ public class Libro implements Serializable {
     @Id
     private String codigoLibro;
     
-    @Column (length = 80,nullable = false,unique = false)
+    @Column (length = 300,nullable = false,unique = false)
     private String nombreLibro;
     
-    @Column (length = 80,nullable = false,unique = false)
+    @Column (length = 300,nullable = false,unique = false)
     private String autor_es;
     
-    @Column (length = 30,nullable = true,unique = false)
+    @Column (length = 100,nullable = true,unique = false)
     private String editorial;
     
     @Column (length = 30,nullable = false,unique = false)
@@ -38,7 +38,7 @@ public class Libro implements Serializable {
      @Column (length = 30,nullable = false,unique = false)
     private String carrera;
     
-    @Column (length = 30,nullable = false,unique = false) 
+    @Column (length = 30,nullable = true,unique = false) 
     private String tomo;
     
     @Column (length = 5,nullable = false,unique = false) 
@@ -47,7 +47,7 @@ public class Libro implements Serializable {
     @Column (length = 15,nullable = false,unique = false) 
     private String fechaIngreso;
     
-    @Column (nullable = false,unique = false) 
+    @Column (nullable = true,unique = false) 
     private ImageIcon imagen;
     
     @Column (length = 15,nullable = false,unique = false) 
@@ -59,7 +59,7 @@ public class Libro implements Serializable {
     }
 
     
-    public Libro(String codigoLibro, String nombreLibro, String autor_es, String procedencia, String carrera, ImageIcon img,String aniopub,String editorial, String tomo,String fechaIngreso) {
+    public Libro(String codigoLibro, String nombreLibro, String autor_es, String procedencia, String carrera,String aniopub,String editorial, String tomo,String fechaIngreso) {
         this.codigoLibro = codigoLibro;
         this.nombreLibro = nombreLibro;
         this.autor_es = autor_es;
@@ -68,7 +68,6 @@ public class Libro implements Serializable {
         this.fechaIngreso = fechaIngreso;
         this.annioPub = aniopub;
         this.editorial= editorial;
-        this.imagen = img;
         this.tomo = tomo;
                 
         

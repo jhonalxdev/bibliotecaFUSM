@@ -52,7 +52,7 @@ public class PrestamoLibro implements Serializable {
     @Column(length = 20, nullable = true, unique = false)
     private Date fechaDevolucion;
     @Column(length = 20, nullable = false, unique = false)
-    private EstadoPrestamo estadoPrestamo;
+    private String estadoPrestamo;
 
     public PrestamoLibro() {
     }
@@ -67,7 +67,7 @@ public class PrestamoLibro implements Serializable {
         this.fechaActivacionPrestamo = null;
         this.fechaDevolucion = null;
         this.fechaSolicitud = new Date();
-        this.estadoPrestamo = EstadoPrestamo.SOLICITUD;
+        this.estadoPrestamo = EstadoPrestamo.SOLICITUD.toString();
         
     }
 
@@ -81,10 +81,7 @@ public class PrestamoLibro implements Serializable {
         this.fechaMaxDevolucion = Calendario.getcalcFechaDevolucion(fechaActivacionPrestamo, 5);
     }
 
-//  
-    
-    
-    
+//     
  
     public String getCodigoLibro() {
         return codigoLibro;
@@ -159,11 +156,11 @@ public class PrestamoLibro implements Serializable {
     }
 
     public EstadoPrestamo getEstadoPrestamo() {
-        return estadoPrestamo;
+        return EstadoPrestamo.valueOf(estadoPrestamo);
     }
 
     public void setEstadoPrestamo(EstadoPrestamo estadoPrestamo) {
-        this.estadoPrestamo = estadoPrestamo;
+        this.estadoPrestamo = estadoPrestamo.toString();
     }
 
    

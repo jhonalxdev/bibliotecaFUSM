@@ -97,8 +97,14 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 
         // agrega la lista de usuarios de la base de datos a mi atributo lista
         // si la base de datos esta vacia el valor asignado es null
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
-        
+        System.out.println("Va a buscar los libros a la BD");
+        int cantidad=10; 
+        Date inicio = new Date();
+        listaLibrosdelaBD = librosjpa.findLibros();
+        Date fin = new Date();
+        long tiempo = fin.getTime()-inicio.getTime();
+        System.out.println("Se demoro buscando "+cantidad+" Libros en: "+(tiempo/1000.0)+" Segundos");
+        System.out.println("ENCONTRO los LIBROS en la BD");
         
         listaPrestamoLibrosdelaBD = prestamolibrosjpa.findPrestamoLibroEntities();
         listaPrestamoLibrosdelaBD.clear();
@@ -146,7 +152,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
                 if (e.getValueIsAdjusting()) {
                     return;
                 }
-
+            System.out.println("ValueChanged fue llamado");
                 ListSelectionModel lsm
                         = (ListSelectionModel) e.getSource();
 
@@ -479,7 +485,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
                        JOptionPane.showMessageDialog(null,"Estimado usuario usted presenta deuda por vencimiento de un préstamo, en caso de alguna \n"
                             + "                   inconsistencia  por favor notifíquelo con el encargado de la biblioteca","Solicitud Denegada",JOptionPane.ERROR_MESSAGE);
                        
-   }else if(librosjpa.findLibroEntities().size()==0){     
+   }else if(librosjpa.findLibros().size()==0){     
       JOptionPane.showMessageDialog(null, "No se encuentran libros registrados");
       
    }else if (miTabla.getSelectedRow() == -1) {
@@ -678,26 +684,27 @@ public void updateCarrito(){
     public void ordenadoxcarrera(){
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        System.out.println("Entro a ordenar por carrera");
+        listaLibrosdelaBD = librosjpa.findLibros();
         
         for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("Administracion")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)((Libro)listaLibrosdelaBD.get(i))).getCarrera().equals("Administracion")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("Contaduria")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("Contaduria")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("Ing. en Sistemas")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("Ing. en Sistemas")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("General")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("General")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
 
@@ -710,30 +717,30 @@ public void updateCarrito(){
 
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        listaLibrosdelaBD = librosjpa.findLibros();
 
 
 
         if (jComboBox1.getSelectedItem().equals("Categoria")) {
 
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("Administracion")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("Administracion")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("Contaduria")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("Contaduria")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("Ing. en Sistemas")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("Ing. en Sistemas")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getCarrera().equals("General")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getCarrera().equals("General")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
 
@@ -744,13 +751,13 @@ public void updateCarrito(){
         if (jComboBox1.getSelectedItem().equals("Estado")) {
 
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getEstado().equals("Disponible")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getEstado().equals("Disponible")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
             for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
-                if (listaLibrosdelaBD.get(i).getEstado().equals("No Disponible")) {
-                    librosTabla.add(listaLibrosdelaBD.get(i));
+                if (((Libro)listaLibrosdelaBD.get(i)).getEstado().equals("No Disponible")) {
+                    librosTabla.add(((Libro)listaLibrosdelaBD.get(i)));
                 }
             }
 
@@ -1036,7 +1043,8 @@ public void updateCarrito(){
 
         // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        System.out.println("Entro a actulizar la TABLA de libros");
+        listaLibrosdelaBD = librosjpa.findLibros();
 
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla

@@ -9,6 +9,7 @@ import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
 import bibliotecafusm.Libro;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -113,7 +114,10 @@ public class LibroJpaController implements Serializable {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
-            return q.getResultList();
+            System.out.println("consultando libros.....5");
+            List<Libro> libros = q.getResultList();
+            System.out.println("consultando libros.....6");
+            return libros;
         } finally {
             em.close();
         }
@@ -123,6 +127,34 @@ public class LibroJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             return em.find(Libro.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Libro> findLibros() {
+
+        EntityManager em = getEntityManager();
+        try {
+            String cantidad = "SELECT COUNT(l.CODIGOLIBRO) FROM LIBRO l";
+            String[] atributos = {"CODIGOLIBRO", "NOMBRELIBRO", "AUTOR_ES", "PROCEDENCIA", "CARRERA", "ANNIOPUB", "EDITORIAL", "TOMO", "FECHAINGRESO", "ESTADO"};
+            String[] datos = new String[atributos.length];
+            Query query = em.createNativeQuery(cantidad);
+            long maximo = (long) query.getSingleResult();
+            List<Libro> libros = new LinkedList<Libro>();
+            String consulta = "SELECT CODIGOLIBRO, ANNIOPUB, AUTOR_ES, CARRERA,EDITORIAL,ESTADO,FECHAINGRESO,NOMBRELIBRO,PROCEDENCIA,TOMO FROM LIBRO";
+            for (int x = 0; x < maximo; x++) {
+                for (int y = 0; y < atributos.length; y++) {
+                    consulta = "SELECT " + atributos[y] + " FROM LIBRO LIMIT " + x + ",1";
+                    query = em.createNativeQuery(consulta);
+                    datos[y] = (String) query.getSingleResult();
+                }
+                Libro book = new Libro(datos[0], datos[1], datos[2], datos[3],
+                        datos[4], datos[5], datos[6], datos[7], datos[8]);
+                book.setEstado(datos[9]);
+                libros.add(book);
+            }
+            return libros;
         } finally {
             em.close();
         }
@@ -140,5 +172,5 @@ public class LibroJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

@@ -21,25 +21,25 @@ public class Usuario implements Serializable{
     @Id
     private String identificacion;
     
-    @Column (length = 30,nullable = false,unique = false)
+    @Column (length = 80,nullable = false,unique = false)
     private String nombres;
     
-    @Column (length = 30,nullable = false,unique = false)
+    @Column (length = 80,nullable = false,unique = false)
     private String apellidos;
     
-    @Column (length = 30,nullable = true,unique = false)
+    @Column (length = 80,nullable = true,unique = false)
     private String carrera;
     
-    @Column (length = 30,nullable = false,unique = false)
+    @Column (length = 80,nullable = false,unique = false)
     private String tipoUsuario;
     
-    @Column (length = 10, nullable = true)
+    @Column (length = 80, nullable = true)
     private String numtelefono;
     
-    @Column (length = 60,nullable = false,unique = true)
+    @Column (length = 100,nullable = false,unique = true)
     private String email;
     
-    @Column (length = 20,nullable = false,unique = false)
+    @Column (length = 30,nullable = false,unique = false)
     private String password;
 
 

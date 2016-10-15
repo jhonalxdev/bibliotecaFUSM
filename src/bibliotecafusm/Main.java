@@ -3,6 +3,8 @@ package bibliotecafusm;
 import GUI.Principal;
 import java.awt.BorderLayout;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -69,7 +71,7 @@ public class Main {
 
         try {
         
-
+        
         Principal ventana = new Principal();
 	ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setLayout(new BorderLayout());
@@ -81,7 +83,7 @@ public class Main {
 
  
        // oculta principal hasta logeo true
-        ventana.setVisible(true);
+        ventana.setVisible(false);
         
   
         } catch (PersistenceException pex) {

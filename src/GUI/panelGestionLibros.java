@@ -35,10 +35,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import javax.swing.table.TableColumnModel;
 
@@ -80,7 +82,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         // agrega la lista de usuarios de la base de datos a mi atributo lista
         // si la base de datos esta vacia el valor asignado es null
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        listaLibrosdelaBD = librosjpa.findLibros();
 
         // asignacion de modelo a tabla
         miTabla.setModel(new ModeloTabla());
@@ -121,7 +123,19 @@ public class panelGestionLibros extends javax.swing.JPanel {
         });
 
         librosTabla = listaLibrosdelaBD;
-        ordenadoxcarrera();
+        ordenadoxcarrera();              
+//        //******************************
+//        ImageIcon img = (ImageIcon) jLabel8.getIcon();
+//        for(Libro libro: listaLibrosdelaBD){
+//            libro.setImagen(img);
+//            try {
+//                librosjpa.edit(libro);
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//            System.out.println("Agregando portadas: al libro code: "+ libro.getCodigoLibro());
+//                    
+//        }
     }
 
     public void organizatamseccionestabla() {
@@ -129,6 +143,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
         cModel.getColumn(2).setPreferredWidth(4);
         cModel.getColumn(3).setPreferredWidth(10);
         cModel.getColumn(4).setPreferredWidth(25);
+         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(CENTER);
+        miTabla.getColumnModel().getColumn(2).setCellRenderer(tcr);
 
     }
 
@@ -551,13 +568,13 @@ public class panelGestionLibros extends javax.swing.JPanel {
                     ImageIcon img = (ImageIcon) jLabel8.getIcon();
 
                     //     public Libro(String codigoLibro, String nombreLibro, String autor_es, String procedencia, String carrera, String fechaIngreso) {
-                    Libro nuevolibro = new Libro(codlib, nombrelib, autoreslib, procedencia, carrera, img, annio, editoriallib, tomo, fechast);
-
+                    Libro nuevolibro = new Libro(codlib, nombrelib, autoreslib, procedencia, carrera, annio, editoriallib, tomo, fechast);
+                    nuevolibro.setImagen(img);
                     librosjpa.create(nuevolibro);
 
                     
                     
-                    listaLibrosdelaBD = librosjpa.findLibroEntities();
+                    listaLibrosdelaBD = librosjpa.findLibros();
                     librosTabla = listaLibrosdelaBD;
 
                     ordenadoxcarrera();
@@ -933,7 +950,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
     public void ordenadoxproced(){
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        listaLibrosdelaBD = librosjpa.findLibros();
     
         for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getProcedencia().equals("FUSM")) {
@@ -964,7 +981,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
     public void ordenadoxcarrera(){
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        listaLibrosdelaBD = librosjpa.findLibros();
         
         for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getCarrera().equals("Administracion")) {
@@ -996,11 +1013,11 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        listaLibrosdelaBD = librosjpa.findLibros();
 
         if (jComboBox1.getSelectedItem().equals("Ingreso")) {
             updateTable();
-            librosTabla = librosjpa.findLibroEntities();
+            librosTabla = librosjpa.findLibros();
         }
 
         if (jComboBox1.getSelectedItem().equals("Categoria")) {
@@ -1113,7 +1130,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
-        listaLibrosdelaBD = librosjpa.findLibroEntities();
+        listaLibrosdelaBD = librosjpa.findLibros();
 
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla
