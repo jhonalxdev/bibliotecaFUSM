@@ -8,7 +8,9 @@ package DAO;
 import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
 import bibliotecafusm.Libro;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import static java.lang.System.load;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,6 +19,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -132,7 +135,7 @@ public class LibroJpaController implements Serializable {
         }
     }
 
-    public List<Libro> findLibros() {
+    public List<Libro> findLibros(JProgressBar BarraProgreso) {
 
         EntityManager em = getEntityManager();
         try {
@@ -141,6 +144,7 @@ public class LibroJpaController implements Serializable {
             String[] datos = new String[atributos.length];
             Query query = em.createNativeQuery(cantidad);
             long maximo = (long) query.getSingleResult();
+            BarraProgreso.setMaximum(((int)maximo-1));
             List<Libro> libros = new LinkedList<Libro>();
             String consulta = "SELECT CODIGOLIBRO, ANNIOPUB, AUTOR_ES, CARRERA,EDITORIAL,ESTADO,FECHAINGRESO,NOMBRELIBRO,PROCEDENCIA,TOMO FROM LIBRO";
             for (int x = 0; x < maximo; x++) {
@@ -153,6 +157,7 @@ public class LibroJpaController implements Serializable {
                         datos[4], datos[5], datos[6], datos[7], datos[8]);
                 book.setEstado(datos[9]);
                 libros.add(book);
+                BarraProgreso.setValue(x);
             }
             return libros;
         } finally {

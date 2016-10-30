@@ -9,6 +9,7 @@ import DAO.LibroJpaController;
 import DAO.PrestamoLibroJpaController;
 
 import DAO.exceptions.NonexistentEntityException;
+import bibliotecafusm.ControladorConsulta;
 import bibliotecafusm.Libro;
 import bibliotecafusm.PrestamoLibro;
 import java.awt.Color;
@@ -60,16 +61,16 @@ public class panelGestionLibros extends javax.swing.JPanel {
         //----------------------------------------
     private PrestamoLibroJpaController prestamolibrosjpa;
     
-    
+    private ControladorConsulta controlador;
 
     private String fechast = "";
 
     /**
      * Creates new form panel1
      */
-    public panelGestionLibros() {
+    public panelGestionLibros(ControladorConsulta controlador) {
         initComponents();
-
+        this.controlador = controlador;
         cargarComboAnos();
 
         lblupdateicon.setVisible(false);
@@ -82,7 +83,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         // agrega la lista de usuarios de la base de datos a mi atributo lista
         // si la base de datos esta vacia el valor asignado es null
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
 
         // asignacion de modelo a tabla
         miTabla.setModel(new ModeloTabla());
@@ -574,7 +577,8 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
                     
                     
-                    listaLibrosdelaBD = librosjpa.findLibros();
+//                    listaLibrosdelaBD = librosjpa.findLibros(load);
+                    listaLibrosdelaBD = controlador.getLibrosBD();
                     librosTabla = listaLibrosdelaBD;
 
                     ordenadoxcarrera();
@@ -950,7 +954,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
     public void ordenadoxproced(){
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
     
         for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getProcedencia().equals("FUSM")) {
@@ -981,7 +987,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
     public void ordenadoxcarrera(){
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
         
         for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (listaLibrosdelaBD.get(i).getCarrera().equals("Administracion")) {
@@ -1013,11 +1021,15 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
 
         if (jComboBox1.getSelectedItem().equals("Ingreso")) {
             updateTable();
-            librosTabla = librosjpa.findLibros();
+            
+//            librosTabla = librosjpa.findLibros(load);
+            librosTabla = controlador.getLibrosBD();
         }
 
         if (jComboBox1.getSelectedItem().equals("Categoria")) {
@@ -1130,7 +1142,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
 
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla

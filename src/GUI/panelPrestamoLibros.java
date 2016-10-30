@@ -7,43 +7,32 @@ package GUI;
 
 import DAO.LibroJpaController;
 import DAO.PrestamoLibroJpaController;
+import bibliotecafusm.ControladorConsulta;
 
-import DAO.exceptions.NonexistentEntityException;
 import bibliotecafusm.Libro;
 import bibliotecafusm.PrestamoLibro;
 import bibliotecafusm.Usuario;
 
 
-import java.awt.Color;
 import java.awt.Image;
 
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.sql.Array;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import static javax.swing.SwingConstants.CENTER;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -70,18 +59,21 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
     //-------------------------------------------
     private Usuario userlogin;
     private boolean usuarioPresentaDeuda = false;
+    private ControladorConsulta controlador;
     /**
      * Creates new form panel1
      */
-    public panelPrestamoLibros(Usuario user) {
+    public panelPrestamoLibros(Usuario user,ControladorConsulta controlador) {
        
         // usuaario debe ser recibido como parametro de principal a this panel <<<<<<<<<<<<<<<<
-        // Usuario(String identificacion, String nombres, String apellidos, String carrera, String tpuser, String numtelefono, String email, String password) {
+        // Usuario(String identificacion, String nombres, String apellidos, 
+        //String carrera, String tpuser, String numtelefono, String email, String password) {
  //>>>
-//        userlogin = new Usuario("123","jhon alex","olave","Ing. Sistemas","Estudiente","3124534314","ola33@hotmail.com","321");
+//        userlogin = new Usuario("123","jhon alex","olave",
+//"Ing. Sistemas","Estudiente","3124534314","ola33@hotmail.com","321");
 //        
     this.userlogin = user;
-        
+        this.controlador = controlador;
         
         initComponents();
          
@@ -98,12 +90,12 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         // agrega la lista de usuarios de la base de datos a mi atributo lista
         // si la base de datos esta vacia el valor asignado es null
         System.out.println("Va a buscar los libros a la BD");
-        int cantidad=10; 
         Date inicio = new Date();
-        listaLibrosdelaBD = librosjpa.findLibros();
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = this.controlador.getLibrosBD();
         Date fin = new Date();
         long tiempo = fin.getTime()-inicio.getTime();
-        System.out.println("Se demoro buscando "+cantidad+" Libros en: "+(tiempo/1000.0)+" Segundos");
+        System.out.println("Se demoro buscando los Libros en: "+(tiempo/1000.0)+" Segundos");
         System.out.println("ENCONTRO los LIBROS en la BD");
         
         listaPrestamoLibrosdelaBD = prestamolibrosjpa.findPrestamoLibroEntities();
@@ -168,7 +160,8 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
             }
         });
         
-        
+        String datos = "########## \n Libros en la BD: "+ listaLibrosdelaBD.size()+"\n#########";
+        System.out.println(datos);
         
         librosTabla = listaLibrosdelaBD;
         ordenadoxcarrera();   
@@ -485,7 +478,8 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
                        JOptionPane.showMessageDialog(null,"Estimado usuario usted presenta deuda por vencimiento de un préstamo, en caso de alguna \n"
                             + "                   inconsistencia  por favor notifíquelo con el encargado de la biblioteca","Solicitud Denegada",JOptionPane.ERROR_MESSAGE);
                        
-   }else if(librosjpa.findLibros().size()==0){     
+//   }else if(librosjpa.findLibros(load).size()==0){     
+   }else if(controlador.getLibrosBD().size()==0){     
       JOptionPane.showMessageDialog(null, "No se encuentran libros registrados");
       
    }else if (miTabla.getSelectedRow() == -1) {
@@ -685,7 +679,12 @@ public void updateCarrito(){
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
         System.out.println("Entro a ordenar por carrera");
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(controlador);
+        listaLibrosdelaBD = controlador.getLibrosBD();
+        String datos = "######\n Libros en controlador: "+ listaLibrosdelaBD.size()+"\n########";
+        System.out.println(datos);
+                
         
         for (int i = 0; i <= listaLibrosdelaBD.size() - 1; i++) {
                 if (((Libro)((Libro)listaLibrosdelaBD.get(i))).getCarrera().equals("Administracion")) {
@@ -717,7 +716,9 @@ public void updateCarrito(){
 
         librosTabla = listaLibrosdelaBD;
         librosTabla.clear();
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
 
 
 
@@ -1044,7 +1045,9 @@ public void updateCarrito(){
         // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
         System.out.println("Entro a actulizar la TABLA de libros");
-        listaLibrosdelaBD = librosjpa.findLibros();
+        
+//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        listaLibrosdelaBD = controlador.getLibrosBD();
 
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla

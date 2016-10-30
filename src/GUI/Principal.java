@@ -6,84 +6,84 @@
 package GUI;
 
 import DAO.PrestamoLibroJpaController;
+import bibliotecafusm.ControladorConsulta;
 import bibliotecafusm.EstadoPrestamo;
+import bibliotecafusm.Libro;
 import bibliotecafusm.PrestamoLibro;
 import bibliotecafusm.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.font.TextAttribute;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JLabel;
 
-
 /**
  *
  * @author Jhon Alex
  */
-public class Principal extends javax.swing.JFrame  {
+public class Principal extends javax.swing.JFrame {
 
-    
     private panelRegistroUsuarios p1;
     private panelGestionVideoBeans p2;
     private panelGestionLibros p3;
-    
-    private panelPrestamoLibros p4;
-    private panelPrestamoVideoBean p5;   
-    private panelGestionPrestamos p6;
-    
 
+    private panelPrestamoLibros p4;
+    private panelPrestamoVideoBean p5;
+    private panelGestionPrestamos p6;
+    private List<Libro> librosBD;
     // jpa prestamo libros para validaciones
     //----------------------------------------
     private PrestamoLibroJpaController prestamolibrosjpa;
-    
+
     //-------------------------------------------
-    
     private Usuario usuarioLogeado;
     private Login lo;
-    
-    
+
     private ventanaPassChange p7;
-    
+
+    private ControladorConsulta controlador;
+    public static final int PANEL_GESTION = 1;
+    public static final int PANEL_PRESTAMO = 2;
+    public int cargaPanel = 0;
+
     /**
      * Creates new form Login
      */
     public Principal() {
-   
+
         initComponents();
-        
-        this.setTitle("Sistema Gestion Prestamos - Biblioteca FUSM Palmira"); 
-        
-        
+        controlador = new ControladorConsulta();
+        controlador.addPropertyChangeListener(new ListenerActulizacionLibrosBD());
+        this.setTitle("Sistema Gestion Prestamos - Biblioteca FUSM Palmira");
+
         // creacion login
         lo = new Login(this);
         lo.setLayout(new BorderLayout());
-        lo.setSize(1340,690);
+        lo.setSize(1340, 690);
         lo.setExtendedState(MAXIMIZED_BOTH);
         lo.setLocationRelativeTo(null);
         lo.setVisible(true);
-  
-        
-        panelprincipal.setOpaque(false);
-        
 
-   
+        panelprincipal.setOpaque(false);
+
         // instancia objeto que va guardar la info a la base de datos 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaFUSMPU");
         prestamolibrosjpa = new PrestamoLibroJpaController(emf);
         validacionVencimientoPrestamosLibros();
-        
-        
-            
-    p7 = new ventanaPassChange();
-    p7.setVisible(false);
+
+        p7 = new ventanaPassChange();
+        p7.setVisible(false);
     }
 
     /**
@@ -130,7 +130,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btnadminusuarios);
-        btnadminusuarios.setBounds(20, 260, 160, 23);
+        btnadminusuarios.setBounds(20, 260, 160, 32);
 
         btngestionvideobeam.setText("Gestion Video Beams");
         btngestionvideobeam.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +139,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btngestionvideobeam);
-        btngestionvideobeam.setBounds(20, 340, 160, 23);
+        btngestionvideobeam.setBounds(20, 340, 160, 32);
 
         titulopanelseccion.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         titulopanelseccion.setForeground(new java.awt.Color(204, 204, 204));
@@ -154,7 +154,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btngestionlibros);
-        btngestionlibros.setBounds(20, 300, 160, 23);
+        btngestionlibros.setBounds(20, 300, 160, 32);
 
         btnprestamos.setText("Prestamos");
         btnprestamos.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +163,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btnprestamos);
-        btnprestamos.setBounds(20, 200, 160, 23);
+        btnprestamos.setBounds(20, 200, 160, 32);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 255));
@@ -178,7 +178,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btnlibros);
-        btnlibros.setBounds(20, 470, 160, 23);
+        btnlibros.setBounds(20, 470, 160, 32);
 
         btnvideo.setText("VIDEO BEAM");
         btnvideo.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ public class Principal extends javax.swing.JFrame  {
             }
         });
         getContentPane().add(btnvideo);
-        btnvideo.setBounds(20, 510, 160, 23);
+        btnvideo.setBounds(20, 510, 160, 32);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 255));
@@ -265,189 +265,193 @@ public class Principal extends javax.swing.JFrame  {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    public void setUsuario(Usuario user){
+    public void setUsuario(Usuario user) {
         usuarioLogeado = user;
         accesoBotones(usuarioLogeado);
-        
-        
-        if(usuarioLogeado.getIdentificacion().equals("Root")){ 
+
+        if (usuarioLogeado.getIdentificacion().equals("Root")) {
             jLabel8.setVisible(false);
-            jLabel9.setVisible(false); 
-        }else{
+            jLabel9.setVisible(false);
+        } else {
             jLabel8.setVisible(true);
-            jLabel9.setVisible(true); 
+            jLabel9.setVisible(true);
         }
-       
+
         panelprincipal.removeAll();
     }
-    
-    
+
     // habilita los botones de los modulos para los usuarios docente y estudiente
-    public void accesoBotones(Usuario u){
-        
+    public void accesoBotones(Usuario u) {
+
         boolean a = true;
         boolean b = false;
-        
-         jLabel2.setVisible(false);
-         jLabel4.setText(u.getTipoUsuario());
 
-        
+        jLabel2.setVisible(false);
+        jLabel4.setText(u.getTipoUsuario());
+
         if (u.getIdentificacion().equals("Root")) {
-            jLabel4.setText(u.getTipoUsuario()+" "+u.getIdentificacion());
+            jLabel4.setText(u.getTipoUsuario() + " " + u.getIdentificacion());
         }
- 
-         
-         
-        if(u.getTipoUsuario().equals("Estudiante")  ||  u.getTipoUsuario().equals("Docente")){
+
+        if (u.getTipoUsuario().equals("Estudiante") || u.getTipoUsuario().equals("Docente")) {
             a = false;
             b = true;
-            
+
             jLabel2.setVisible(true);
-            jLabel3.setText("Bienvenido "+u.getTipoUsuario());
-            jLabel4.setText(u.getNombres()+" "+u.getApellidos());            
+            jLabel3.setText("Bienvenido " + u.getTipoUsuario());
+            jLabel4.setText(u.getNombres() + " " + u.getApellidos());
         }
 
         btnprestamos.setVisible(a);
         btnadminusuarios.setVisible(a);
         btngestionlibros.setVisible(a);
         btngestionvideobeam.setVisible(a);
-        
+
         btnlibros.setVisible(b);
-        btnvideo.setVisible(b);  
+        btnvideo.setVisible(b);
     }
-    
-    
-    public void validacionVencimientoPrestamosLibros(){
-        
+
+    public void validacionVencimientoPrestamosLibros() {
+
         DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaDate =null;
-        
+        Date fechaDate = null;
+
         for (PrestamoLibro p : prestamolibrosjpa.findPrestamoLibroEntities()) {
-            
-            if(p.getFechaMaxDevolucion()!=null){  
-            
+
+            if (p.getFechaMaxDevolucion() != null) {
+
                 fechaDate = p.getFechaMaxDevolucion();
                 if (new Date().after(fechaDate)) {
                     // asignar estado vencido al libro que la fecha devolucion sea posterior ala actual
                     p.setEstadoPrestamo(EstadoPrestamo.VENCIDO);
-                    
+
                     try {
                         prestamolibrosjpa.edit(p);
                     } catch (Exception ex) {
                         // Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            
+
             }
         }
-      
-    }
-    
-    
 
-    
-    
-       
+    }
+
+
     private void btnadminusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadminusuariosActionPerformed
-        
+
         p1 = new panelRegistroUsuarios();
         panelprincipal.removeAll();
-        panelprincipal.add(new JLabel("                                                             ")); 
-       
-        panelprincipal.add(p1);        
-        panelprincipal.updateUI();       
+        panelprincipal.add(new JLabel("                                                             "));
+
+        panelprincipal.add(p1);
+        panelprincipal.updateUI();
         titulopanelseccion.setText("Modulo Administración Usuarios");
 
     }//GEN-LAST:event_btnadminusuariosActionPerformed
 
-    
+
     private void btngestionvideobeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngestionvideobeamActionPerformed
-        
+
         p2 = new panelGestionVideoBeans();
         panelprincipal.removeAll();
-        panelprincipal.add(new JLabel("                                                             ")); 
-       
+        panelprincipal.add(new JLabel("                                                             "));
+
         panelprincipal.add(p2);
         panelprincipal.updateUI();
         titulopanelseccion.setText("Modulo Gestion Video Beams");
     }//GEN-LAST:event_btngestionvideobeamActionPerformed
 
-    
+
     private void btngestionlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngestionlibrosActionPerformed
-        
-        p3 = new panelGestionLibros();
+        cargaPanel = PANEL_GESTION;
+        btngestionlibros.setEnabled(false);
+        loadLibros(evt);
+        //pendiente llamar al panel
+
+    }//GEN-LAST:event_btngestionlibrosActionPerformed
+    public void cargarPanelGestionLibros() {
+        p3 = new panelGestionLibros(controlador);
         panelprincipal.removeAll();
-        panelprincipal.add(new JLabel("                                                             ")); 
-        
+        panelprincipal.add(new JLabel("                                                             "));
+
         panelprincipal.add(p3);
         panelprincipal.updateUI();
         titulopanelseccion.setText("Modulo Gestion Libros");
-    }//GEN-LAST:event_btngestionlibrosActionPerformed
+    }
 
-    private void btnlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlibrosActionPerformed
-               
-        p4 = new panelPrestamoLibros(usuarioLogeado);       
+    private void loadLibros(java.awt.event.ActionEvent evt) {
+        Loading load = new Loading(controlador);
         panelprincipal.removeAll();
-        panelprincipal.add(new JLabel("                                                             ")); 
-       
+        panelprincipal.add(load);
+        panelprincipal.updateUI();
+        load.getControladorListener().actionPerformed(evt);
+    }
+    private void btnlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlibrosActionPerformed
+        cargaPanel = PANEL_PRESTAMO;
+        btnlibros.setEnabled(false);
+        loadLibros(evt);
+        //pendiente llamar al panel
+    }//GEN-LAST:event_btnlibrosActionPerformed
+    public void cargarPanelPrestamosLibros() {
+        p4 = new panelPrestamoLibros(usuarioLogeado, controlador);
+        panelprincipal.removeAll();
+        panelprincipal.add(new JLabel("                                                             "));
+
         panelprincipal.add(p4);
         panelprincipal.updateUI();
         titulopanelseccion.setText("Modulo Prestamo Libros");
-    }//GEN-LAST:event_btnlibrosActionPerformed
+    }
+
 
     private void btnvideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvideoActionPerformed
-        
-        p5 = new panelPrestamoVideoBean(usuarioLogeado);       
+
+        p5 = new panelPrestamoVideoBean(usuarioLogeado);
         panelprincipal.removeAll();
-        panelprincipal.add(new JLabel("                                                             ")); 
-       
+        panelprincipal.add(new JLabel("                                                             "));
+
         panelprincipal.add(p5);
         panelprincipal.updateUI();
         titulopanelseccion.setText("Modulo Prestamo Video Beam");
     }//GEN-LAST:event_btnvideoActionPerformed
 
     private void btnprestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprestamosActionPerformed
-        
-        p6 = new panelGestionPrestamos();       
+
+        p6 = new panelGestionPrestamos();
         panelprincipal.removeAll();
-        panelprincipal.add(new JLabel("                                                             ")); 
-       
+        panelprincipal.add(new JLabel("                                                             "));
+
         panelprincipal.add(p6);
         panelprincipal.updateUI();
         titulopanelseccion.setText("Modulo Gestion Prestamos ");
     }//GEN-LAST:event_btnprestamosActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        
+
         this.setVisible(false);
         lo.setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    
-    
-    
+
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
 //        this.setVisible(false);
 //        lo.setVisible(true);
-        System.exit(0); 
+        System.exit(0);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
-        
+
         Font font = jLabel7.getFont();
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         jLabel7.setFont(font.deriveFont(attributes));
     }//GEN-LAST:event_jLabel7MouseEntered
 
- 
-    
+
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
- 
-    removeUnderline(jLabel7);
-    removeUnderline(jLabel8);
+
+        removeUnderline(jLabel7);
+        removeUnderline(jLabel8);
 
     }//GEN-LAST:event_jLabel1MouseEntered
 
@@ -458,27 +462,20 @@ public class Principal extends javax.swing.JFrame  {
         jLabel8.setFont(font.deriveFont(attributes));
     }//GEN-LAST:event_jLabel8MouseEntered
 
-    
 
-    
-    
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         p7.setUserlogin(usuarioLogeado);
         p7.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
     // remove el interlineado
-    public void removeUnderline(JLabel label){
+    public void removeUnderline(JLabel label) {
         Font font1 = label.getFont();
         Map attributes1 = font1.getAttributes();
         attributes1.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE);
         label.setFont(font1.deriveFont(attributes1));
     }
-    
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -535,6 +532,25 @@ public class Principal extends javax.swing.JFrame  {
     private javax.swing.JLabel titulopanelseccion;
     // End of variables declaration//GEN-END:variables
 
+    public class ListenerActulizacionLibrosBD implements PropertyChangeListener {
 
+        @Override
+        public void propertyChange(PropertyChangeEvent pce) {
+            if (pce.getPropertyName().equals(ControladorConsulta.PROP_LIBROS_BD)) {
+                switch (cargaPanel) {
+                    case PANEL_GESTION:
+                        cargarPanelGestionLibros();
+                        btngestionlibros.setEnabled(true);
+                        break;
+                    case PANEL_PRESTAMO:
+                        cargarPanelPrestamosLibros();
+                        btnlibros.setEnabled(true);
+                        break;
+                }
+
+            }
+        }
+
+    }
 
 }
