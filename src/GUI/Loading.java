@@ -33,17 +33,13 @@ public class Loading extends javax.swing.JPanel {
         this.setVisible(true);
     }
 
-    
-
-    public void setValueProgress(int progreso) {
-        this.BarraProgreso.setValue(progreso);
-    }
-
     public Controlador getControladorListener() {
         return new Controlador();
     }
 
-    
+    public ControladorConsulta getControlador(){
+        return this.controlador;
+    }
 
     public class Controlador implements ActionListener {
 
@@ -60,7 +56,7 @@ public class Loading extends javax.swing.JPanel {
             FileHandler fh;
 //            Lo del log
             try {
-                fh = new FileHandler("c:\\log\\biblioteca_Fusm.log", true);
+                fh = new FileHandler("d:\\log\\biblioteca_Fusm.log", true);
                 SimpleFormatter formatter = new SimpleFormatter();
                 fh.setFormatter(formatter);
                 logger.addHandler(fh);
@@ -69,7 +65,8 @@ public class Loading extends javax.swing.JPanel {
             } catch (IOException e) {
                 System.out.println("No se pudo escribir el LOG");
             }
-            
+            System.out.println("-----------------Aqui se ca a comenzar a leer los libros");
+                    
             controlador.setLibrosBD(librosjpa.findLibros(BarraProgreso));
         }
     }

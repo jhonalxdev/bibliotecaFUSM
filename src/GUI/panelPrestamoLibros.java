@@ -74,7 +74,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 //        
     this.userlogin = user;
         this.controlador = controlador;
-        
+        System.out.println("+++++Tamaño controlador: "+ this.controlador.getLibrosBD().size()); 
         initComponents();
          
          listalabelscarrito.add(libroimg1);
@@ -89,14 +89,9 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
 
         // agrega la lista de usuarios de la base de datos a mi atributo lista
         // si la base de datos esta vacia el valor asignado es null
-        System.out.println("Va a buscar los libros a la BD");
-        Date inicio = new Date();
-//        listaLibrosdelaBD = librosjpa.findLibros(load);
+        
+        //  listaLibrosdelaBD = librosjpa.findLibros(load);
         listaLibrosdelaBD = this.controlador.getLibrosBD();
-        Date fin = new Date();
-        long tiempo = fin.getTime()-inicio.getTime();
-        System.out.println("Se demoro buscando los Libros en: "+(tiempo/1000.0)+" Segundos");
-        System.out.println("ENCONTRO los LIBROS en la BD");
         
         listaPrestamoLibrosdelaBD = prestamolibrosjpa.findPrestamoLibroEntities();
         listaPrestamoLibrosdelaBD.clear();
@@ -171,6 +166,10 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         setInfoUser();
         
         updateTablePrestamos();
+        
+        String datos2 = "########## \n Libros en la BD: "+ listaLibrosdelaBD.size()+"\n#########";
+        System.out.println(datos2);
+        
     }
 
     
@@ -676,8 +675,23 @@ public void updateCarrito(){
 
   
     public void ordenadoxcarrera(){
-        librosTabla = listaLibrosdelaBD;
-        librosTabla.clear();
+//***********************************************
+//***********************************************
+//***********************************************
+//***********************************************
+//***********************************************
+// EEEEEEEE RRRRRRRR RRRRRRRR   OOOOOO   RRRRRRRR
+// EEE      RRR    R RRR    R  OO    OO  RRR    R
+// EEEEE
+// EEE
+// EEEEEEEE
+
+//        librosTabla = listaLibrosdelaBD;
+//      librosTabla.clear()
+//**************************************************
+//*************************************************
+// FIN DEL ERROR DEL DEMONIO
+librosTabla = new ArrayList<>();
         System.out.println("Entro a ordenar por carrera");
         
 //        listaLibrosdelaBD = librosjpa.findLibros(controlador);
@@ -1045,14 +1059,15 @@ public void updateCarrito(){
         // ACTUALIZACION DE LA TABLA
         // volver asignarle el nuevo valor de la lista de la base de datos
         System.out.println("Entro a actulizar la TABLA de libros");
-        
+        System.out.println("TUpdateTable: "+ controlador.getLibrosBD().size());
 //        listaLibrosdelaBD = librosjpa.findLibros(load);
         listaLibrosdelaBD = controlador.getLibrosBD();
 
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla
-        ((AbstractTableModel) miTabla.getModel()).fireTableDataChanged();
-
+//        ((AbstractTableModel) miTabla.getModel()).fireTableDataChanged();
+            miTabla.updateUI();
+        System.out.println("++++TUpdateTable: "+ controlador.getLibrosBD().size());
     }
     
     
@@ -1065,14 +1080,13 @@ public void updateCarrito(){
 
         // metodo es diferente ya no es setModel
         // actualiza nuestro modelo actual de la tabla
-        ((AbstractTableModel) miTabla.getModel()).fireTableDataChanged();
-
+//        ((AbstractTableModel) miTabla.getModel()).fireTableDataChanged();
+        miTabla.updateUI();
     }
 
 
 
  
-
     // CREANDO MODELO TABLA LIBROS 
     private class ModeloTabla extends AbstractTableModel {
 

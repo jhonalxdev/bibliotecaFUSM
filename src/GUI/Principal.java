@@ -53,6 +53,7 @@ public class Principal extends javax.swing.JFrame {
     private ventanaPassChange p7;
 
     private ControladorConsulta controlador;
+    private Loading load;
     public static final int PANEL_GESTION = 1;
     public static final int PANEL_PRESTAMO = 2;
     public int cargaPanel = 0;
@@ -366,6 +367,7 @@ public class Principal extends javax.swing.JFrame {
     private void btngestionlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngestionlibrosActionPerformed
         cargaPanel = PANEL_GESTION;
         btngestionlibros.setEnabled(false);
+        btnlibros.setEnabled(false);
         loadLibros(evt);
         //pendiente llamar al panel
 
@@ -381,15 +383,17 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void loadLibros(java.awt.event.ActionEvent evt) {
-        Loading load = new Loading(controlador);
+        load = new Loading(controlador);
         panelprincipal.removeAll();
         panelprincipal.add(load);
         panelprincipal.updateUI();
         load.getControladorListener().actionPerformed(evt);
+        
     }
     private void btnlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlibrosActionPerformed
         cargaPanel = PANEL_PRESTAMO;
         btnlibros.setEnabled(false);
+        btngestionlibros.setEnabled(false);
         loadLibros(evt);
         //pendiente llamar al panel
     }//GEN-LAST:event_btnlibrosActionPerformed
@@ -537,17 +541,22 @@ public class Principal extends javax.swing.JFrame {
         @Override
         public void propertyChange(PropertyChangeEvent pce) {
             if (pce.getPropertyName().equals(ControladorConsulta.PROP_LIBROS_BD)) {
+                System.out.println("Size Controlador Notificacion: "+ controlador.getLibrosBD().size());
+                controlador = load.getControlador();
+                System.out.println("Size despues de modificado: "+ controlador.getLibrosBD().size());
+                load = null;
                 switch (cargaPanel) {
                     case PANEL_GESTION:
                         cargarPanelGestionLibros();
-                        btngestionlibros.setEnabled(true);
+
                         break;
                     case PANEL_PRESTAMO:
                         cargarPanelPrestamosLibros();
-                        btnlibros.setEnabled(true);
+
                         break;
                 }
-
+                btngestionlibros.setEnabled(true);
+                btnlibros.setEnabled(true);
             }
         }
 
