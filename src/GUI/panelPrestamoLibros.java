@@ -682,9 +682,9 @@ public void updateCarrito(){
 //***********************************************
 // EEEEEEEE RRRRRRRR RRRRRRRR   OOOOOO   RRRRRRRR
 // EEE      RRR    R RRR    R  OO    OO  RRR    R
-// EEEEE
-// EEE
-// EEEEEEEE
+// EEEEE    RRRRRRRR
+// EEE      RRRRR
+// EEEEEEEE RR  RRRR
 
 //        librosTabla = listaLibrosdelaBD;
 //      librosTabla.clear()

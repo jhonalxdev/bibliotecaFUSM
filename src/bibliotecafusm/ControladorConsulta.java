@@ -38,7 +38,8 @@ public class ControladorConsulta {
 
     public void setLibrosBD(List<Libro> libros) {
         if (!(libros == null || libros.isEmpty())) {
-            List<Libro> anterior = this.librosBD;
+//            List<Libro> anterior = this.librosBD;
+            List<Libro> anterior = null;
             this.librosBD = libros;
             propertyChangeSupport.firePropertyChange(PROP_LIBROS_BD, anterior, this.librosBD);
             System.out.println("=========================Actulizacion de libros");

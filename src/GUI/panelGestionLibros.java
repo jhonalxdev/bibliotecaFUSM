@@ -985,9 +985,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
         }
     
     public void ordenadoxcarrera(){
-        librosTabla = listaLibrosdelaBD;
-        librosTabla.clear();
-        
+//        librosTabla = listaLibrosdelaBD;
+//        librosTabla.clear();
+        librosTabla = new ArrayList<>();
 //        listaLibrosdelaBD = librosjpa.findLibros(load);
         listaLibrosdelaBD = controlador.getLibrosBD();
         

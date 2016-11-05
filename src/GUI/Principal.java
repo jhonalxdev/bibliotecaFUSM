@@ -366,6 +366,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btngestionlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngestionlibrosActionPerformed
         cargaPanel = PANEL_GESTION;
+        
         btngestionlibros.setEnabled(false);
         btnlibros.setEnabled(false);
         loadLibros(evt);
@@ -374,11 +375,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btngestionlibrosActionPerformed
     public void cargarPanelGestionLibros() {
         p3 = new panelGestionLibros(controlador);
+        System.out.println("LLego a crear el panel");
         panelprincipal.removeAll();
+        System.out.println("Quito la barra de carga");
         panelprincipal.add(new JLabel("                                                             "));
 
         panelprincipal.add(p3);
         panelprincipal.updateUI();
+        System.out.println("######Agrego el panel de gestion");
+                
         titulopanelseccion.setText("Modulo Gestion Libros");
     }
 
@@ -540,13 +545,17 @@ public class Principal extends javax.swing.JFrame {
 
         @Override
         public void propertyChange(PropertyChangeEvent pce) {
+            System.out.println("Entroa validar las propiedad cambiada");
             if (pce.getPropertyName().equals(ControladorConsulta.PROP_LIBROS_BD)) {
                 System.out.println("Size Controlador Notificacion: "+ controlador.getLibrosBD().size());
                 controlador = load.getControlador();
                 System.out.println("Size despues de modificado: "+ controlador.getLibrosBD().size());
                 load = null;
+                System.out.println("Valor de cargaPanel: "+cargaPanel);
+                        
                 switch (cargaPanel) {
                     case PANEL_GESTION:
+                        System.out.println("Entro a coger el metodo 1");
                         cargarPanelGestionLibros();
 
                         break;
