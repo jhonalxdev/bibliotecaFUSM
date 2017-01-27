@@ -25,6 +25,7 @@ public class Loading extends javax.swing.JPanel {
 
     public Loading(ControladorConsulta controlador) {
         initComponents();
+        
         this.controlador = controlador;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaFUSMPU");
         librosjpa = new LibroJpaController(emf);

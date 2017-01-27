@@ -14,6 +14,7 @@ import bibliotecafusm.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.GridLayout;
 import java.awt.font.TextAttribute;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -389,10 +390,18 @@ public class Principal extends javax.swing.JFrame {
 
     private void loadLibros(java.awt.event.ActionEvent evt) {
         load = new Loading(controlador);
+        
+        
+
+        
+        
         panelprincipal.removeAll();
         panelprincipal.add(load);
+//        panelprincipal.revalidate();
+//        panelprincipal.repaint();
         panelprincipal.updateUI();
         load.getControladorListener().actionPerformed(evt);
+        
         
     }
     private void btnlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlibrosActionPerformed

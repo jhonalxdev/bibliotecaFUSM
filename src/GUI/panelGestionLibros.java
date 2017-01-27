@@ -96,7 +96,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         jLabel17.setText("" + librosjpa.getLibroCount());
 
-        jTextField1.addActionListener(new ActionListener() {
+        parametro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 jButton5ActionPerformed(ae);
@@ -196,7 +196,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        parametro = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -362,8 +362,8 @@ public class panelGestionLibros extends javax.swing.JPanel {
         jLabel15.setText("Buscar por:");
         jPanel2.add(jLabel15);
         jLabel15.setBounds(260, 20, 80, 14);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(337, 40, 190, 20);
+        jPanel2.add(parametro);
+        parametro.setBounds(337, 40, 190, 20);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icono_buscar1.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -416,22 +416,22 @@ public class panelGestionLibros extends javax.swing.JPanel {
     public boolean casillasenBlanco() {
         boolean salida = false;
 
-        if (txtnombrelib.getText().equals("".trim())) {
+        if (txtnombrelib.getText().trim().equals("")) {
             salida = true;
         }
-        if (txtautores.getText().equals("".trim())) {
-            salida = true;
-        }
-
-        if (txtcodigolib.getText().equals("".trim())) {
+        if (txtautores.getText().trim().equals("")) {
             salida = true;
         }
 
-        if (txteditoriallib.getText().equals("".trim())) {
+        if (txtcodigolib.getText().trim().equals("")) {
             salida = true;
         }
 
-        if (txtfechapub.getText().equals("".trim())) {
+        if (txteditoriallib.getText().trim().equals("")) {
+            salida = true;
+        }
+
+        if (txtfechapub.getText().trim().equals("")) {
             salida = true;
         }
 
@@ -473,9 +473,9 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
                 } else{
                 
-                libroencontrado.setNombreLibro(txtnombrelib.getText().trim());;
-                libroencontrado.setAutor_es(txtautores.getText().trim());
-                libroencontrado.setEditorial(txteditoriallib.getText().trim());
+                libroencontrado.setNombreLibro(txtnombrelib.getText().trim().toUpperCase());;
+                libroencontrado.setAutor_es(txtautores.getText().trim().toUpperCase());
+                libroencontrado.setEditorial(txteditoriallib.getText().trim().toUpperCase());
 
                 libroencontrado.setTomo("" + combotomos.getSelectedItem().toString());
                 libroencontrado.setAnnioPub("" + comboannios.getSelectedItem().toString());
@@ -557,10 +557,10 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
                 } else {
 
-                    String codlib = "" + txtcodigolib.getText().trim();
-                    String nombrelib = "" + txtnombrelib.getText().trim();
-                    String autoreslib = "" + txtautores.getText().trim();
-                    String editoriallib = "" + txteditoriallib.getText().trim();
+                    String codlib = "" + txtcodigolib.getText().trim().toUpperCase();
+                    String nombrelib = "" + txtnombrelib.getText().trim().toUpperCase();
+                    String autoreslib = "" + txtautores.getText().trim().toUpperCase();
+                    String editoriallib = "" + txteditoriallib.getText().trim().toUpperCase();
 
                     String tomo = "" + combotomos.getSelectedItem().toString();
                     String annio = "" + comboannios.getSelectedItem().toString();
@@ -725,7 +725,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         miTabla.setEnabled(val);
 
-        jTextField1.setEnabled(val);
+        parametro.setEnabled(val);
 
     }
 
@@ -797,14 +797,14 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
         int selc = -1;
 
-        if (jTextField1.getText().equals("".trim())) {
+        if (parametro.getText().equals("".trim())) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un criterio de busqueda ");
 
         } else {
 
             if (jComboBox2.getSelectedItem().equals("Codigo")) {
 
-                Libro libro = librosjpa.findLibro(jTextField1.getText().trim());
+                Libro libro = librosjpa.findLibro(parametro.getText().trim());
 
                 if (libro != null) {
 
@@ -830,7 +830,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
 
             if (jComboBox2.getSelectedItem().equals("Nombre")) {
 
-                String nombrelibro = jTextField1.getText().trim();
+                String nombrelibro = parametro.getText().trim().toUpperCase() ;
 
                 vecSel.clear();
 
@@ -875,7 +875,7 @@ public class panelGestionLibros extends javax.swing.JPanel {
    
                if (jComboBox2.getSelectedItem().equals("Autor")) {
 
-                String autor = jTextField1.getText().trim();
+                String autor = parametro.getText().trim();
 
                 vecSel.clear();
 
@@ -1125,11 +1125,11 @@ public class panelGestionLibros extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblcarrera;
     private javax.swing.JLabel lblcodestu;
     private javax.swing.JLabel lblupdateicon;
     private javax.swing.JTable miTabla;
+    private javax.swing.JTextField parametro;
     private javax.swing.JTextField txtautores;
     private javax.swing.JTextField txtcodigolib;
     private javax.swing.JTextField txteditoriallib;

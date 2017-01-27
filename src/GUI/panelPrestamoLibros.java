@@ -8,6 +8,7 @@ package GUI;
 import DAO.LibroJpaController;
 import DAO.PrestamoLibroJpaController;
 import bibliotecafusm.ControladorConsulta;
+import bibliotecafusm.EstadoPrestamo;
 
 import bibliotecafusm.Libro;
 import bibliotecafusm.PrestamoLibro;
@@ -118,7 +119,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         
      
         // manejador buqueda enter
-        jTextField1.addActionListener(new ActionListener() {
+        parametro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 jButton5ActionPerformed(ae);
@@ -169,6 +170,8 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         
         String datos2 = "########## \n Libros en la BD: "+ listaLibrosdelaBD.size()+"\n#########";
         System.out.println(datos2);
+        
+        
         
     }
 
@@ -242,7 +245,7 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        parametro = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<String>();
@@ -384,8 +387,8 @@ public class panelPrestamoLibros extends javax.swing.JPanel {
         jLabel15.setText("Buscar por:");
         jPanel2.add(jLabel15);
         jLabel15.setBounds(180, 20, 80, 14);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(270, 40, 270, 20);
+        jPanel2.add(parametro);
+        parametro.setBounds(270, 40, 270, 20);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icono_buscar1.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -549,14 +552,14 @@ public void updateCarrito(){
 
         int selc = -1;
 
-        if (jTextField1.getText().equals("".trim())) {
+        if (parametro.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un criterio de busqueda ");
 
         } else {
 
             if (jComboBox2.getSelectedItem().equals("Codigo")) {
 
-                Libro libro = librosjpa.findLibro(jTextField1.getText().trim());
+                Libro libro = librosjpa.findLibro(parametro.getText().trim());
 
                 if (libro != null) {
 
@@ -582,7 +585,7 @@ public void updateCarrito(){
 
             if (jComboBox2.getSelectedItem().equals("Titulo")) {
 
-                String nombrelibro = jTextField1.getText().trim();
+                String nombrelibro = parametro.getText().trim().toUpperCase();
 
                 vecSel.clear();
 
@@ -627,7 +630,7 @@ public void updateCarrito(){
    
                if (jComboBox2.getSelectedItem().equals("Autor")) {
 
-                String autor = jTextField1.getText().trim();
+                String autor = parametro.getText().trim();
 
                 vecSel.clear();
 
@@ -687,10 +690,8 @@ public void updateCarrito(){
 // EEEEEEEE RR  RRRR
 
 //        librosTabla = listaLibrosdelaBD;
-//      librosTabla.clear()
-//**************************************************
-//*************************************************
-// FIN DEL ERROR DEL DEMONIO
+//      librosTabla.clear() 
+
 librosTabla = new ArrayList<>();
         System.out.println("Entro a ordenar por carrera");
         
@@ -1010,17 +1011,31 @@ librosTabla = new ArrayList<>();
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel libroimg1;
     private javax.swing.JLabel libroimg2;
     private javax.swing.JLabel libroimg3;
     private javax.swing.JTable miTabla;
     private javax.swing.JTable miTablaPrestamos;
+    private javax.swing.JTextField parametro;
     private javax.swing.JTextField txtacarrera;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 
+    
+    
+    
+    public boolean presentadeuda(){
+        
+        
+        
+        return true;
+    }
+    
+    
+    
+    
+    
     
         // actulizar tabla prestamos con info base de datos
     public void updateTablePrestamos() {
@@ -1035,12 +1050,13 @@ librosTabla = new ArrayList<>();
             
             if (p.getIdUsuario().equals(userlogin.getIdentificacion())) {
                 
-                if(p.getEstadoPrestamo().equals("Vencido")){
+                
+                if(p.getEstadoPrestamo() == EstadoPrestamo.VENCIDO){
                     usuarioPresentaDeuda = true;
                 }
                 
-                if(!p.getEstadoPrestamo().equals("Entregado")){
-                listaPrestamoLibrosdelaBD.add(p);
+                if(p.getEstadoPrestamo() != EstadoPrestamo.DEVUELTO ){
+                    listaPrestamoLibrosdelaBD.add(p);
                 }
             }
         }
